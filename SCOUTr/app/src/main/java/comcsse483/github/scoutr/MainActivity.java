@@ -1,9 +1,11 @@
 package comcsse483.github.scoutr;
 
+
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
+import comcsse483.github.scoutr.fragments.SyncDataFragment;
+import comcsse483.github.scoutr.fragments.ViewDataFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,11 +49,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState == null){
-            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fragment_container, new SetUpNewTournamentFragment());
-            ft.commit();
-        }
+//        if(savedInstanceState == null){
+//            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.add(R.id.fragment_container, new SetUpNewTournamentFragment());
+//            ft.commit();
+//        }
     }
 
     @Override
@@ -87,21 +92,33 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        Fragment switchTo = null;
 
-        switch (id){
+        switch (item.getItemId()){
             case R.id.nav_set_up_new_tournament:
-
+                switchTo = new SetUpNewTournamentFragment();
                 break;
             case R.id.nav_record_data:
-
+                switchTo = new RecordDataFragment();
                 break;
             case R.id.nav_view:
-
+                switchTo = new ViewDataFragment();
                 break;
             case R.id.nav_sync_data:
-
+                switchTo = new SyncDataFragment();
                 break;
+        }
+
+        if(switchTo != null){
+            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.fragment_container,switchTo);
+
+            //Manage back stack
+            for(int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++){
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+
+            ft.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
