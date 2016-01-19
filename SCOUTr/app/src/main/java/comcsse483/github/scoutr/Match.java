@@ -3,7 +3,8 @@ package comcsse483.github.scoutr;
 import java.util.ArrayList;
 
 /**
- * Created by schmitml on 1/18/16.
+ * Class that represents a match, and contains all relevant information
+ * about a particular match and its teams.
  */
 public class Match {
     private ArrayList<Team> mBlueTeamList;
