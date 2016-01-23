@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import comcsse483.github.scoutr.R;
-import comcsse483.github.scoutr.SlidingTabLayout;
-import comcsse483.github.scoutr.TabsPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +18,6 @@ import comcsse483.github.scoutr.TabsPagerAdapter;
  * create an instance of this fragment.
  */
 public class SetUpNewTournamentFragment extends Fragment {
-    private SlidingTabLayout mSlidingTabLayout;
 
     private ViewPager mViewPager;
 
@@ -32,15 +29,10 @@ public class SetUpNewTournamentFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        setUpPager(view);
+
     }
 
-    void setUpPager(View view) {
-        mViewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        mViewPager.setAdapter(new TabsPagerAdapter(getActivity()));
-        mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
-        mSlidingTabLayout.setViewPager(mViewPager);
-    }
+
 
 
 }

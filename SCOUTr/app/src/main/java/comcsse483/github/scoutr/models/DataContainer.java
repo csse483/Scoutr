@@ -1,4 +1,4 @@
-package comcsse483.github.scoutr;
+package comcsse483.github.scoutr.models;
 
 /**
  * A container for data that will be collected during matches.
