@@ -1,5 +1,8 @@
 package comcsse483.github.scoutr.fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,7 +21,7 @@ import comcsse483.github.scoutr.R;
  * Use the {@link SyncDataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SyncDataFragment extends Fragment {
+public class SyncDataFragment extends DialogFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,10 +65,10 @@ public class SyncDataFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sync_data, container, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Pick ")
     }
 
     // TODO: Rename method, update argument and hook method into UI event
