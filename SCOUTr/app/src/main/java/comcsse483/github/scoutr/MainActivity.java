@@ -1,11 +1,14 @@
 package comcsse483.github.scoutr;
 
 
+import android.net.Uri;
+import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,10 +21,11 @@ import android.view.View;
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.SyncDataFragment;
+import comcsse483.github.scoutr.fragments.ViewDataDetailFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,12 +105,13 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_record_data:
                 switchTo = new RecordDataFragment();
                 break;
-            case R.id.nav_view:
-                switchTo = new ViewDataFragment();
+            case R.id.nav_view_data:
+                switchTo =  new ViewDataFragment();
                 break;
             case R.id.nav_sync_data:
-                //Fix for sync data being a DialogFragment
-                //switchTo = new SyncDataFragment();
+                DialogFragment df = new SyncDataFragment();
+                df.show(getSupportFragmentManager(), "");
+                //TODO: Make sure this works with the switchTo statement below.
                 break;
         }
 
@@ -127,4 +132,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void switchToDetailFragment(Match match) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, ViewDataDetailFragment.newInstance(match));
+        ft.addToBackStack("detail");
+        ft.commit();
+    }
 }
