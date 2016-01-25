@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import comcsse483.github.scoutr.models.Match;
+
 /**
  * Created by yarlagrt on 1/25/2016.
  */

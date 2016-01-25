@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import comcsse483.github.scoutr.Match;
 import comcsse483.github.scoutr.R;
+import comcsse483.github.scoutr.models.Match;
 
 
 /**

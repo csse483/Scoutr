@@ -1,12 +1,9 @@
 package comcsse483.github.scoutr;
 
 
-import android.net.Uri;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -16,13 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.SyncDataFragment;
 import comcsse483.github.scoutr.fragments.ViewDataDetailFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
+import comcsse483.github.scoutr.models.Match;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener  {
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity
 
          if(savedInstanceState == null){
              android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-             ft.add(R.id.fragment_container, new SetUpNewTournamentFragment());
+             ft.replace(R.id.fragment_container, new SetUpNewTournamentFragment());
              ft.commit();
          }
     }
@@ -117,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
         if (switchTo != null) {
             android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fragment_container, switchTo);
+            ft.replace(R.id.fragment_container, switchTo);
 
             //Manage back stack
             for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
@@ -135,7 +132,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void switchToDetailFragment(Match match) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, ViewDataDetailFragment.newInstance(match));
+        ft.replace(R.id.fragment_container, new ViewDataFragment());
         ft.addToBackStack("detail");
         ft.commit();
     }

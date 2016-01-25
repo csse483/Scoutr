@@ -10,10 +10,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
-import comcsse483.github.scoutr.Match;
 import comcsse483.github.scoutr.R;
-import comcsse483.github.scoutr.Team;
 import comcsse483.github.scoutr.Utils;
+import comcsse483.github.scoutr.models.Match;
+import comcsse483.github.scoutr.models.Team;
 
 /**
  * Created by yarlagrt on 1/25/2016.
@@ -23,7 +23,7 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
     private ArrayList<Match> matches;
     private ViewDataFragment.OnFragmentInteractionListener mListener;
 
-    public MatchListAdapter (ViewDataFragment.OnFragmentInteractionListener listener) {
+    public MatchListAdapter(ViewDataFragment.OnFragmentInteractionListener listener) {
         //TODO: Populate Arraylist of matches
         matches = Utils.generateSampleTeamList();
         mListener = listener;
@@ -56,7 +56,6 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
         });
 
 
-
     }
 
     private int getAlliancePredictedScore(ArrayList<Team> teams) {
@@ -76,6 +75,7 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView mMatchNumberView, mRed1, mRed2, mRed3, mBlue1, mBlue2, mBlue3, mBlueScore, mRedScore;
+
         public ViewHolder(View itemView) {
             super(itemView);
             mMatchNumberView = (TextView) itemView.findViewById(R.id.match_title);
@@ -85,7 +85,7 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
             mRed1 = (TextView) itemView.findViewById(R.id.red1);
             mRed2 = (TextView) itemView.findViewById(R.id.red2);
             mRed3 = (TextView) itemView.findViewById(R.id.red3);
-            mBlueScore = (TextView)itemView.findViewById(R.id.blue_score);
+            mBlueScore = (TextView) itemView.findViewById(R.id.blue_score);
             mRedScore = (TextView) itemView.findViewById(R.id.red_score);
 
         }

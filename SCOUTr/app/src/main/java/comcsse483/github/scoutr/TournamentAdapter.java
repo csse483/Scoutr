@@ -105,10 +105,10 @@ public class TournamentAdapter extends RecyclerView.Adapter<TournamentAdapter.Vi
     }
 
     private void launchRecordData(Tournament tournament){
-        FragmentManager fragmentManager = mActivity.getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.add(R.id.fragment_container, new RecordDataFragment(), null);
-        ft.commit();
+//        FragmentManager fragmentManager = mActivity.getFragmentManager();
+//        FragmentTransaction ft = fragmentManager.beginTransaction();
+//        ft.add(R.id.fragment_container, RecordDataFragment.newInstance(), null);
+//        ft.commit();
 
 
 //        Intent recordDataIntent = new Intent(mActivity.getApplicationContext(), RecordDataFragment.class);
