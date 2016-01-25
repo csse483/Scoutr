@@ -11,4 +11,8 @@ public class Team {
         mTeamNumber = teamNumber;
         mData = new DataContainer();
     }
+
+    public int getTeamNumber() {
+        return mTeamNumber;
+    }
 }

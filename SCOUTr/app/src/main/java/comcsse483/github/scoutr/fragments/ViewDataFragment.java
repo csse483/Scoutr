@@ -35,6 +35,7 @@ public class ViewDataFragment extends Fragment {
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_view_match_list, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new MatchListAdapter(mListener);
+        view.setAdapter(mAdapter);
         return view;
     }
 

@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Random;
 
 import comcsse483.github.scoutr.Match;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.Team;
+import comcsse483.github.scoutr.Utils;
 
 /**
  * Created by yarlagrt on 1/25/2016.
@@ -23,6 +24,7 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
 
     public MatchListAdapter (ViewDataFragment.OnFragmentInteractionListener listener) {
         //TODO: Populate Arraylist of matches
+        matches = Utils.generateSampleTeamList();
         mListener = listener;
     }
 
@@ -36,12 +38,12 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
     public void onBindViewHolder(MatchListAdapter.ViewHolder holder, int position) {
         final Match match = getMatch(position);
         holder.mMatchNumberView.setText(match.getNumber() + "");
-        holder.mBlue1.setText(match.getmBlueTeamList().get(1) + "");
-        holder.mBlue2.setText(match.getmBlueTeamList().get(2) + "");
-        holder.mBlue3.setText(match.getmBlueTeamList().get(3) + "");
-        holder.mRed1.setText(match.getmRedTeamList().get(1) + "");
-        holder.mRed2.setText(match.getmRedTeamList().get(2) + "");
-        holder.mRed3.setText(match.getmRedTeamList().get(3) + "");
+        holder.mBlue1.setText(match.getmBlueTeamList().get(1).getTeamNumber() + "");
+        holder.mBlue2.setText(match.getmBlueTeamList().get(2).getTeamNumber() + "");
+        holder.mBlue3.setText(match.getmBlueTeamList().get(3).getTeamNumber() + "");
+        holder.mRed1.setText(match.getmRedTeamList().get(1).getTeamNumber() + "");
+        holder.mRed2.setText(match.getmRedTeamList().get(2).getTeamNumber() + "");
+        holder.mRed3.setText(match.getmRedTeamList().get(3).getTeamNumber() + "");
         holder.mBlueScore.setText(getAlliancePredictedScore(match.getmBlueTeamList()) + "");
         holder.mRedScore.setText(getAlliancePredictedScore(match.getmRedTeamList()) + "");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +59,8 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
 
     private int getAlliancePredictedScore(ArrayList<Team> teams) {
         //TODO
-        return 0;
+        Random rnd = new Random();
+        return rnd.nextInt(100);
     }
 
     @Override
