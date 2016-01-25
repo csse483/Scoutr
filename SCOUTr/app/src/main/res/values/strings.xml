@@ -31,4 +31,13 @@
     <string name="bluetooth">Bluetooth</string>
     <string name="wifi">Wifi</string>
     <string name="sync_dialog_title">Pick a communication method.</string>
+
+
+    <!-- Record Data Text -->
+    <string name="field_one">Field One</string>
+    <string name="field_two">Field Two</string>
+    <string name="field_three">Field Three</string>
+    <string name="field_four">Field Four</string>
+    <string name="record_data_button">Record Data</string>
+
 </resources>
