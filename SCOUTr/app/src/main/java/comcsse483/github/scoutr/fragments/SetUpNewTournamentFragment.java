@@ -2,37 +2,37 @@ package comcsse483.github.scoutr.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import comcsse483.github.scoutr.R;
+import comcsse483.github.scoutr.TournamentAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SetUpNewTournamentFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SetUpNewTournamentFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class SetUpNewTournamentFragment extends Fragment {
 
-    private ViewPager mViewPager;
+    private TournamentAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_set_up_new_tournament, container, false);
+
+        RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_set_up_new_tournament, container, false);
+        view.setLayoutManager(new LinearLayoutManager(getContext()));
+        TournamentAdapter adapter = new TournamentAdapter(getActivity());
+        view.setAdapter(adapter);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
     }
-
-
 
 
 }
