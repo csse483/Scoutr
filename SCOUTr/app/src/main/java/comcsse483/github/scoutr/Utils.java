@@ -13,8 +13,8 @@ public class Utils {
         ArrayList<Match> matches = new ArrayList<Match>();
         Random rnd = new Random(5188);
         for (int i = 0; i < 50; i++) {
-            int[] newTeams = new int[5];
-            for (int j = 0; j < 5; j++) {
+            int[] newTeams = new int[6];
+            for (int j = 0; j < 6; j++) {
                 newTeams[j] = rnd.nextInt(6000);
             }
             Match newMatch = new Match(i, Arrays.copyOfRange(newTeams,0,3), Arrays.copyOfRange(newTeams,3,6));

@@ -21,6 +21,7 @@ import android.view.View;
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.SyncDataFragment;
+import comcsse483.github.scoutr.fragments.ViewDataDetailFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -103,8 +104,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_record_data:
                 switchTo = new RecordDataFragment();
                 break;
-            case R.id.nav_view:
-                switchTo = new ViewDataFragment();
+            case R.id.nav_view_data:
+                switchTo =  new ViewDataFragment();
                 break;
             case R.id.nav_sync_data:
                 DialogFragment df = new SyncDataFragment();
@@ -128,11 +129,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override

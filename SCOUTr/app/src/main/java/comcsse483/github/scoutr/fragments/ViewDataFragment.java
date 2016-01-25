@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ public class ViewDataFragment extends Fragment {
     private MatchListAdapter mAdapter;
 
     public ViewDataFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -37,13 +37,6 @@ public class ViewDataFragment extends Fragment {
         mAdapter = new MatchListAdapter(mListener);
         view.setAdapter(mAdapter);
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -75,7 +68,6 @@ public class ViewDataFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
         void switchToDetailFragment(Match match);
     }
 }

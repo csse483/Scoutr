@@ -1,6 +1,7 @@
 package comcsse483.github.scoutr.fragments;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
         //TODO: Populate Arraylist of matches
         matches = Utils.generateSampleTeamList();
         mListener = listener;
+        Log.d("APT", "adapter created");
     }
 
     @Override
@@ -37,13 +39,13 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
     @Override
     public void onBindViewHolder(MatchListAdapter.ViewHolder holder, int position) {
         final Match match = getMatch(position);
-        holder.mMatchNumberView.setText(match.getNumber() + "");
-        holder.mBlue1.setText(match.getmBlueTeamList().get(1).getTeamNumber() + "");
-        holder.mBlue2.setText(match.getmBlueTeamList().get(2).getTeamNumber() + "");
-        holder.mBlue3.setText(match.getmBlueTeamList().get(3).getTeamNumber() + "");
-        holder.mRed1.setText(match.getmRedTeamList().get(1).getTeamNumber() + "");
-        holder.mRed2.setText(match.getmRedTeamList().get(2).getTeamNumber() + "");
-        holder.mRed3.setText(match.getmRedTeamList().get(3).getTeamNumber() + "");
+        holder.mMatchNumberView.setText("Match\n" + match.getNumber());
+        holder.mBlue1.setText(match.getmBlueTeamList().get(0).getTeamNumber() + "");
+        holder.mBlue2.setText(match.getmBlueTeamList().get(1).getTeamNumber() + "");
+        holder.mBlue3.setText(match.getmBlueTeamList().get(2).getTeamNumber() + "");
+        holder.mRed1.setText(match.getmRedTeamList().get(0).getTeamNumber() + "");
+        holder.mRed2.setText(match.getmRedTeamList().get(1).getTeamNumber() + "");
+        holder.mRed3.setText(match.getmRedTeamList().get(2).getTeamNumber() + "");
         holder.mBlueScore.setText(getAlliancePredictedScore(match.getmBlueTeamList()) + "");
         holder.mRedScore.setText(getAlliancePredictedScore(match.getmRedTeamList()) + "");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
