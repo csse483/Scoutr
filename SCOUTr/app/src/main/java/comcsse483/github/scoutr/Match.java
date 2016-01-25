@@ -1,5 +1,7 @@
 package comcsse483.github.scoutr;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 /**
@@ -9,10 +11,12 @@ import java.util.ArrayList;
 public class Match {
     private ArrayList<Team> mBlueTeamList;
     private ArrayList<Team> mRedTeamList;
+    private int matchNumber;
 
-    public Match(int[] blueTeams, int[] redTeams){
+    public Match(int matchNumber, int[] blueTeams, int[] redTeams){
         mBlueTeamList = new ArrayList<>();
         mRedTeamList = new ArrayList<>();
+        this.matchNumber = matchNumber;
 
         //Create Team objects and add to their respective lists
         for(int i = 0; i < 3; i++){
@@ -28,5 +32,15 @@ public class Match {
 
     }
 
+    public ArrayList<Team> getmBlueTeamList() {
+        return mBlueTeamList;
+    }
 
+    public ArrayList<Team> getmRedTeamList() {
+        return mRedTeamList;
+    }
+
+    public int getNumber() {
+        return matchNumber;
+    }
 }

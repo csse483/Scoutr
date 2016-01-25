@@ -1,6 +1,7 @@
 package comcsse483.github.scoutr;
 
 
+import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -104,8 +105,9 @@ public class MainActivity extends AppCompatActivity
                 switchTo = new ViewDataFragment();
                 break;
             case R.id.nav_sync_data:
-                //Fix for sync data being a DialogFragment
-                //switchTo = new SyncDataFragment();
+                DialogFragment df = new SyncDataFragment();
+                df.show(getSupportFragmentManager(), "");
+                //TODO: Make sure this works with the switchTo statement below.
                 break;
         }
 
