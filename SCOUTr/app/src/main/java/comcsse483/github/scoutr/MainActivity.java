@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity
                 switchTo = new ViewDataFragment();
                 break;
             case R.id.nav_sync_data:
-                switchTo = new SyncDataFragment();
+                //Fix for sync data being a DialogFragment
+                //switchTo = new SyncDataFragment();
                 break;
         }
 

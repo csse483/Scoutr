@@ -33,7 +33,7 @@ public class SyncDataFragment extends DialogFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public SyncDataFragment() {
+    public SyncDataFragment()  {
         // Required empty public constructor
     }
 
@@ -68,7 +68,13 @@ public class SyncDataFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Pick ")
+        builder.setTitle(R.string.sync_dialog_title);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_sync_data, null, false);
+
+
+
+        return builder.create();
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
