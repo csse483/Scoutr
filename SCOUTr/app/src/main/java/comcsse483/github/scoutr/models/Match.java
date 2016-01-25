@@ -1,4 +1,4 @@
-package comcsse483.github.scoutr;
+package comcsse483.github.scoutr.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

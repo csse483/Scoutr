@@ -1,4 +1,4 @@
-package comcsse483.github.scoutr;
+package comcsse483.github.scoutr.models;
 
 /**
  * Object that represents a team for the purposes of recording statistics during matches.
