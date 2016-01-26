@@ -1,13 +1,10 @@
-package comcsse483.github.scoutr;
+package comcsse483.github.scoutr.adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import comcsse483.github.scoutr.fragments.RecordDataFragment;
-import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
+import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.models.Tournament;
 
 /**

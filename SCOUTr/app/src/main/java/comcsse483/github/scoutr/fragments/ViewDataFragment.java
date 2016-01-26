@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import comcsse483.github.scoutr.R;
+import comcsse483.github.scoutr.adapters.MatchListAdapter;
 import comcsse483.github.scoutr.models.Match;
 
 /**

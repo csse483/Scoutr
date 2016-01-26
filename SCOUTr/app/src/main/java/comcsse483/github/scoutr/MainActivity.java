@@ -17,12 +17,11 @@ import android.view.MenuItem;
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.SyncDataFragment;
-import comcsse483.github.scoutr.fragments.ViewDataDetailFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
 import comcsse483.github.scoutr.models.Match;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener  {
+        implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +49,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-         if(savedInstanceState == null){
-             android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-             ft.replace(R.id.fragment_container, new SetUpNewTournamentFragment());
-             ft.commit();
-         }
+        if (savedInstanceState == null) {
+            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, new SetUpNewTournamentFragment());
+            ft.commit();
+        }
     }
 
     @Override
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity
                 switchTo = new RecordDataFragment();
                 break;
             case R.id.nav_view_data:
-                switchTo =  new ViewDataFragment();
+                switchTo = new ViewDataFragment();
                 break;
             case R.id.nav_sync_data:
                 DialogFragment df = new SyncDataFragment();

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import comcsse483.github.scoutr.R;
-import comcsse483.github.scoutr.TournamentAdapter;
+import comcsse483.github.scoutr.adapters.TournamentAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

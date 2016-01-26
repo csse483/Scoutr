@@ -1,4 +1,4 @@
-package comcsse483.github.scoutr.fragments;
+package comcsse483.github.scoutr.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +12,7 @@ import java.util.Random;
 
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.Utils;
+import comcsse483.github.scoutr.fragments.ViewDataFragment;
 import comcsse483.github.scoutr.models.Match;
 import comcsse483.github.scoutr.models.Team;
 
