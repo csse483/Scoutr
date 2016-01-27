@@ -6,4 +6,10 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sync_data"
+        android:icon="@drawable/ic_sync_white_18dp"
+        android:title="@string/sync_data"
+        app:showAsAction="always" />
 </menu>

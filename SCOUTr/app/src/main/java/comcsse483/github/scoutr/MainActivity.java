@@ -78,12 +78,14 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_sync_data:
+                DialogFragment df = new SyncDataFragment();
+                df.show(getSupportFragmentManager(), "");
+                break;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -103,11 +105,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_view_data:
                 switchTo = new ViewDataFragment();
-                break;
-            case R.id.nav_sync_data:
-                DialogFragment df = new SyncDataFragment();
-                df.show(getSupportFragmentManager(), "");
-                //TODO: Make sure this works with the switchTo statement below.
                 break;
         }
 
