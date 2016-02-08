@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.SyncDataFragment;
+import comcsse483.github.scoutr.fragments.TestDBFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
 import comcsse483.github.scoutr.models.Match;
 
@@ -107,6 +108,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_record_data:
                 switchTo = new RecordDataFragment();
+                break;
+            case R.id.nav_test_data:
+                switchTo = new TestDBFragment();
                 break;
             case R.id.nav_view_data:
                 switchTo = new ViewDataFragment();

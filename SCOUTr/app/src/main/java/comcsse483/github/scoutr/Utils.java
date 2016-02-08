@@ -27,7 +27,35 @@ public class Utils {
     }
 
     public static ArrayList<DataContainer> generateSampleScoutingData() {
-        
+        ArrayList<DataContainer> containers = new ArrayList<>();
+        Random rnd = new Random();
+        for (int i = 0; i < 10; i++){
+            DataContainer newContainer = new DataContainer();
+            newContainer.setAutoHighGoalAttempted(rnd.nextInt(10));
+            newContainer.setAutoLowGoalAttempted(rnd.nextInt(10));
+            newContainer.setHighGoalAttempted(rnd.nextInt(10));
+            newContainer.setLowGoalAttempted(rnd.nextInt(10));
+
+            newContainer.setAutoHighGoalScored(rnd.nextInt(10));
+            newContainer.setAutoLowGoalScored(rnd.nextInt(10));
+            newContainer.setHighGoalScored(rnd.nextInt(10));
+            newContainer.setLowGoalScored(rnd.nextInt(10));
+
+            newContainer.setCrossedA1(rnd.nextInt(10));
+            newContainer.setCrossedA2(rnd.nextInt(10));
+            newContainer.setCrossedB1(rnd.nextInt(10));
+            newContainer.setCrossedB2(rnd.nextInt(10));
+            newContainer.setCrossedC1(rnd.nextInt(10));
+            newContainer.setCrossedC2(rnd.nextInt(10));
+            newContainer.setCrossedD1(rnd.nextInt(10));
+            newContainer.setCrossedD2(rnd.nextInt(10));
+
+            newContainer.setTowerChallenged(rnd.nextBoolean());
+            newContainer.setTowerScaled(rnd.nextBoolean());
+            containers.add(newContainer);
+        }
+
+        return containers;
     }
 }
 

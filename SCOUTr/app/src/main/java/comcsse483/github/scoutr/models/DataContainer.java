@@ -173,5 +173,11 @@ public class DataContainer {
         this.towerScaled = towerScaled;
     }
 
-
+    @Override
+    public String toString() {
+        return "" + autoHighGoalAttempted + " " + autoHighGoalScored + " " + autoLowGoalAttempted
+                + " " + autoLowGoalScored + " " + crossedA1 + " " + crossedA2  + " " + crossedB1
+                + " " + crossedB2  + " " + crossedC1  + " " + crossedC2 + " " + crossedD1  + " " +
+                crossedD2 + " " + Boolean.toString(isTowerChallenged())  + " " + Boolean.toString(isTowerScaled());
+    }
 }

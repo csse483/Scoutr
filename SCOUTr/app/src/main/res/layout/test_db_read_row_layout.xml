@@ -17,7 +17,9 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/shot_percetage_text_view"
-            android:layout_column="2" />
+            android:layout_column="5"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="15dp" />
     </TableRow>
 
     <TableRow
@@ -36,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/defenses_crossed_text_view"
-            android:layout_column="2" />
+            android:layout_column="5"
+            android:layout_margin="5dp" />
     </TableRow>
 
     <TableRow
@@ -47,15 +50,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tower Challenged?"
-            android:id="@+id/tower_challenged_text_view"
             android:layout_column="0" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text= "                             "
+            android:id="@+id/textView2"
+            android:layout_column="3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="New Text"
-            android:id="@+id/textView8"
-            android:layout_column="2" />
+            android:id="@+id/tower_challenged_text_view"
+            android:layout_column="5"
+            android:layout_margin="5dp" />
     </TableRow>
 
     <TableRow
@@ -74,6 +84,7 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/tower_scaled_text_view"
-            android:layout_column="2" />
+            android:layout_column="5"
+            android:layout_margin="5dp" />
     </TableRow>
 </TableLayout>

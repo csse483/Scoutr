@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.Tournament;
@@ -17,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "ScouterDB.db";
     public static final String TYPE_INT = " INT, ";
-    public static final String TABLE_NAME = "table";
+    public static final String TABLE_NAME = "DATA_TABLE";
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, 1);
@@ -51,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 TeamMatchEntry.COLUMN_NAME_CROSSED_D2 + TYPE_INT +
 
                 TeamMatchEntry.COLUMN_NAME_TOWER_CHALLENGED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_TOWER_SCALED + TYPE_INT +
+                TeamMatchEntry.COLUMN_NAME_TOWER_SCALED + " INT" +
                 ")"
         );
     }
@@ -77,21 +78,23 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(TeamMatchEntry.COLUMN_NAME_HIGH_SCORED, data.getHighGoalScored());
 
         contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_A1, data.getCrossedA1());
-        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_A2, data.getCrossedA1());
-        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_B1, data.getCrossedA1());
-        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_B2, data.getCrossedA1());
-        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_C1, data.getCrossedA1());
-        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_C2, data.getCrossedA1());
-        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_D1, data.getCrossedA1());
-        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_D2, data.getCrossedA1());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_A2, data.getCrossedA2());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_B1, data.getCrossedB1());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_B2, data.getCrossedB2());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_C1, data.getCrossedC1());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_C2, data.getCrossedC2());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_D1, data.getCrossedD1());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_CROSSED_D2, data.getCrossedD2());
 
         int towerChallenged = data.isTowerChallenged() ? 1 : 0;
         int towerScaled = data.isTowerScaled() ? 1 : 0;
 
         contentValues.put(TeamMatchEntry.COLUMN_NAME_TOWER_CHALLENGED, towerChallenged);
         contentValues.put(TeamMatchEntry.COLUMN_NAME_TOWER_SCALED, towerScaled);
-
-        return db.insert(TABLE_NAME, null, contentValues) != -1;
+        boolean isSuccessful = db.insert(TABLE_NAME, null, contentValues) != -1;
+        db.close();
+        Log.d("DTB", "Wrote the following to db: " + data.toString());
+        return isSuccessful;
 
     }
 }
