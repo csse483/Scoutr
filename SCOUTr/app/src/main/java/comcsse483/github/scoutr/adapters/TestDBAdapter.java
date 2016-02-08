@@ -1,11 +1,8 @@
 package comcsse483.github.scoutr.adapters;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,26 +12,26 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comcsse483.github.scoutr.DBHelper;
-import comcsse483.github.scoutr.DatabaseContract;
+import comcsse483.github.scoutr.DatabaseContract.TeamMatchEntry;
 import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.Utils;
 import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.TestDataContainer;
-import comcsse483.github.scoutr.DatabaseContract.TeamMatchEntry;
 
 /**
  * Created by yarlagrt on 2/8/2016.
  */
-public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder>{
+public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder> {
     private ArrayList<TestDataContainer> mItemList = new ArrayList<>();
 
     public TestDBAdapter(Context context) {
         //Pull data from database and add to arrayList
-        DBHelper mDBHelper = ((MainActivity)context).mDBHelper;
+        DBHelper mDBHelper = ((MainActivity) context).mDBHelper;
         for (DataContainer i : Utils.generateSampleScoutingData()) {
             mDBHelper.insertData(i);
         }
+
         SQLiteDatabase mDB = mDBHelper.getReadableDatabase();
         Cursor mCursor = mDB.query(mDBHelper.TABLE_NAME, null, null, null, null, null, null);
 
@@ -53,7 +50,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
                     mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_LOW_SCORED)) +
                     mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_HIGH_SCORED));
 
-            newContainer.setShotPercetage((double)shotsAttempted/shotsMade);
+            newContainer.setShotPercetage((double) shotsAttempted / shotsMade);
 
             //Number of Crossings
             int numCrossings = 0;
@@ -79,7 +76,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(TestDBAdapter.ViewHolder holder, int position) {
-            holder.onBind(mItemList.get(position));
+        holder.onBind(mItemList.get(position));
     }
 
     @Override
@@ -87,7 +84,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
         return mItemList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView shotPercentageTextView;
         TextView crossingsTextView;
         TextView towerScaledTextView;

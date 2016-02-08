@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_test_data:
                 switchTo = new TestDBFragment();
                 break;
-            case R.id.nav_view_data:
-                switchTo = new ViewDataFragment();
-                break;
+//            case R.id.nav_view_data:
+//                switchTo = new ViewDataFragment();
+//                break;
         }
 
         if (switchTo != null) {
