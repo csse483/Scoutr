@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.Match;
 
 /**
@@ -23,6 +24,10 @@ public class Utils {
             matches.add(newMatch);
         }
         return matches;
+    }
+
+    public static ArrayList<DataContainer> generateSampleScoutingData() {
+        
     }
 }
 

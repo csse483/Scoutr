@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.adapters.TestDBAdapter;
 import comcsse483.github.scoutr.adapters.TournamentAdapter;
+import comcsse483.github.scoutr.models.Match;
 
 /**
  * A simple {@link Fragment} subclass.

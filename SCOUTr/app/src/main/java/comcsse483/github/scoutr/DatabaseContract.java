@@ -36,5 +36,19 @@ public final class DatabaseContract {
 
         public static final String COLUMN_NAME_TOWER_CHALLENGED = "towerChallenged";
         public static final String COLUMN_NAME_TOWER_SCALED =  "towerScaled";
+
+
+        public static String[] getListOfDefenses() {
+            return new String[] {
+                    COLUMN_NAME_CROSSED_A1,
+                    COLUMN_NAME_CROSSED_A2,
+                    COLUMN_NAME_CROSSED_B1,
+                    COLUMN_NAME_CROSSED_B2,
+                    COLUMN_NAME_CROSSED_C1,
+                    COLUMN_NAME_CROSSED_C2,
+                    COLUMN_NAME_CROSSED_D1,
+                    COLUMN_NAME_CROSSED_D2
+            };
+        }
     }
 }

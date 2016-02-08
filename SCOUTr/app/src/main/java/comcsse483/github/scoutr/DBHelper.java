@@ -15,13 +15,12 @@ import comcsse483.github.scoutr.DatabaseContract.TeamMatchEntry;
  */
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "ScouterDB.db";
-    private static final String TYPE_INT = " INT, ";
-    private final String TABLE_NAME;
+    public static final String DB_NAME = "ScouterDB.db";
+    public static final String TYPE_INT = " INT, ";
+    public static final String TABLE_NAME = "table";
 
-    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, Tournament tournament) {
+    public DBHelper(Context context) {
         super(context, DB_NAME, null, 1);
-        this.TABLE_NAME = tournament.getName();
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
