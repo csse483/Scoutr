@@ -19,9 +19,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TYPE_INT = " INT, ";
     private final String TABLE_NAME;
 
-
-
-
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, Tournament tournament) {
         super(context, DB_NAME, null, 1);
         this.TABLE_NAME = tournament.getName();
@@ -95,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(TeamMatchEntry.COLUMN_NAME_TOWER_CHALLENGED, towerChallenged);
         contentValues.put(TeamMatchEntry.COLUMN_NAME_TOWER_SCALED, towerScaled);
 
-       return db.insert(TABLE_NAME, null, contentValues) != -1;
+        return db.insert(TABLE_NAME, null, contentValues) != -1;
 
     }
 }
