@@ -10,6 +10,13 @@ public class DataContainer {
     private int autoLowGoalScored;
     private int lowGoalAttempted;
     private int lowGoalScored;
+
+    private int autoHighGoalAttempted;
+    private int autoHighGoalScored;
+    private int highGoalAttempted;
+    private int highGoalScored;
+
+
     private int crossedA1;
     private int crossedA2;
     private int crossedB1;
@@ -18,6 +25,7 @@ public class DataContainer {
     private int crossedC2;
     private int crossedD1;
     private int crossedD2;
+
     private boolean towerChallenged;
     private boolean towerScaled;
 
@@ -51,6 +59,38 @@ public class DataContainer {
 
     public void setLowGoalScored(int lowGoalScored) {
         this.lowGoalScored = lowGoalScored;
+    }
+
+    public int getAutoHighGoalAttempted() {
+        return autoHighGoalAttempted;
+    }
+
+    public void setAutoHighGoalAttempted(int autoHighGoalAttempted) {
+        this.autoHighGoalAttempted = autoHighGoalAttempted;
+    }
+
+    public int getAutoHighGoalScored() {
+        return autoHighGoalScored;
+    }
+
+    public void setAutoHighGoalScored(int autoHighGoalScored) {
+        this.autoHighGoalScored = autoHighGoalScored;
+    }
+
+    public int getHighGoalAttempted() {
+        return highGoalAttempted;
+    }
+
+    public void setHighGoalAttempted(int highGoalAttempted) {
+        this.highGoalAttempted = highGoalAttempted;
+    }
+
+    public int getHighGoalScored() {
+        return highGoalScored;
+    }
+
+    public void setHighGoalScored(int highGoalScored) {
+        this.highGoalScored = highGoalScored;
     }
 
     public int getCrossedA1() {
