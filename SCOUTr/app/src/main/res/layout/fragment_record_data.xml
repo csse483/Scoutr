@@ -1,6 +1,23 @@
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/record_data_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comcsse483.github.scoutr.fragments.RecordDataFragment" />
+    android:weightSum="100"
+    android:orientation="vertical"
+    tools:context="comcsse483.github.scoutr.fragments.RecordDataFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/record_data_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="90" />
+
+    <Button
+        android:id="@+id/record_data_button"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:text="@string/record_data_button" />
+
+</LinearLayout>

@@ -1,11 +1,14 @@
 package comcsse483.github.scoutr.models;
 
+import comcsse483.github.scoutr.Constants;
+
 /**
  * A container for data that will be collected during matches.
  * Separated so that data fields can be customized on the fly.
  * Good OOP.
  */
 public class DataContainer {
+    private int mTeamId;
     private int autoLowGoalAttempted;
     private int autoLowGoalScored;
     private int lowGoalAttempted;
@@ -28,6 +31,59 @@ public class DataContainer {
 
     private boolean towerChallenged;
     private boolean towerScaled;
+
+    public DataContainer(){
+        //Empty constructor only used for testing
+    }
+
+    /**
+     * Constructor that assigns a teamId. This is to be used exclusively in the future.
+     * @param teamId
+     */
+    public DataContainer(int teamId){
+        mTeamId = teamId;
+    }
+
+    /**
+     * Clunky method to set the corresponding data based on the name of the incoming  data entry.
+     * @param dataName
+     * @param data
+     * @return
+     */
+    public boolean setData(String dataName, Object data){
+        //This is sooooooooooo ugly
+        if(dataName.equals(Constants.DATA_NAMES[0])){
+            setAutoLowGoalAttempted((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[1])){
+            setAutoLowGoalScored((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[2])){
+            setLowGoalAttempted((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[3])){
+            setLowGoalScored((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[4])){
+            setCrossedA1((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[5])){
+            setCrossedA2((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[6])){
+            setCrossedB1((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[7])){
+            setCrossedB2((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[8])){
+            setCrossedC1((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[9])){
+            setCrossedC2((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[10])){
+            setCrossedD1((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[11])){
+            setCrossedD2((int) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[12])){
+            setTowerChallenged((Boolean) data);
+        }else if(dataName.equals(Constants.DATA_NAMES[13])){
+            setTowerScaled((Boolean) data);
+        }
+
+        return false;
+    }
 
     public int getAutoLowGoalAttempted() {
         return autoLowGoalAttempted;

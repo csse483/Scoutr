@@ -20,7 +20,7 @@ public class Utils {
             for (int j = 0; j < 6; j++) {
                 newTeams[j] = rnd.nextInt(6000);
             }
-            Match newMatch = new Match(i, Arrays.copyOfRange(newTeams,0,3), Arrays.copyOfRange(newTeams,3,6));
+            Match newMatch = new Match(i, Arrays.copyOfRange(newTeams, 0, 3), Arrays.copyOfRange(newTeams, 3, 6));
             matches.add(newMatch);
         }
         return matches;
@@ -29,7 +29,7 @@ public class Utils {
     public static ArrayList<DataContainer> generateSampleScoutingData() {
         ArrayList<DataContainer> containers = new ArrayList<>();
         Random rnd = new Random();
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             DataContainer newContainer = new DataContainer();
             newContainer.setAutoHighGoalAttempted(rnd.nextInt(10));
             newContainer.setAutoLowGoalAttempted(rnd.nextInt(10));
@@ -56,6 +56,17 @@ public class Utils {
         }
 
         return containers;
+
+    }
+
+    public static boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
     }
 }
 
