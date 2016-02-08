@@ -18,14 +18,15 @@ public class RecordDataFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        mAdapter = new RecordDataAdapter();
+        mAdapter = new RecordDataAdapter(getContext());
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_record_data, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
-        view.setHasFixedSize(true);
         view.setAdapter(mAdapter);
         return view;
     }
 
+    //TODO: Add Button to Record Data
+    //TODO: Add data container
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

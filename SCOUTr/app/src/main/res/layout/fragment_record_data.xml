@@ -1,6 +1,17 @@
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/record_data_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comcsse483.github.scoutr.fragments.RecordDataFragment" />
+    tools:context="comcsse483.github.scoutr.fragments.RecordDataFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/record_data_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/record_data_button" />
+
+</RelativeLayout>
