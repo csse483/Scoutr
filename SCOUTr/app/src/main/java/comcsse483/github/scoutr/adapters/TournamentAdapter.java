@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.plnyyanks.tba.apiv2.APIv2Helper;
+import com.plnyyanks.tba.apiv2.interfaces.APIv2;
+import com.plnyyanks.tba.apiv2.models.Event;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.models.Tournament;
@@ -30,14 +36,16 @@ public class TournamentAdapter extends RecyclerView.Adapter<TournamentAdapter.Vi
     public TournamentAdapter(Activity activity){
         mActivity = activity;
         mItemList = new ArrayList<>();
-        test();
-        notifyDataSetChanged();
+
+        //Grab tournament list using TBA API
+        new GetEventsTask().execute(2016);
+
     }
 
-    private void test(){
-        for(int i = 1; i < 11; i++)
-            mItemList.add(new Tournament("Tournament: " + i));
-    }
+//    private void test(){
+//        for(int i = 1; i < 11; i++)
+//            mItemList.add(new Tournament("Tournament: " + i));
+//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -111,5 +119,25 @@ public class TournamentAdapter extends RecyclerView.Adapter<TournamentAdapter.Vi
 //        recordDataIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        recordDataIntent.putExtra(Constants.KEY_TOURNAMENT, tournament);
 //        mActivity.startActivity(recordDataIntent);
+    }
+
+    class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
+
+        @Override
+        protected List<Event> doInBackground(Integer... params) {
+            int year = params[0];
+            APIv2 tbaAPI = APIv2Helper.getAPI();
+            List<Event> eventsInYear = tbaAPI.fetchEventsInYear(2016, null);
+            return eventsInYear;
+        }
+
+        @Override
+        protected void onPostExecute(List<Event> events) {
+            super.onPostExecute(events);
+            for (Event i : events) {
+                mItemList.add(new Tournament(i.getName(), i.getEvent_code()));
+            }
+            notifyDataSetChanged();
+        }
     }
 }
