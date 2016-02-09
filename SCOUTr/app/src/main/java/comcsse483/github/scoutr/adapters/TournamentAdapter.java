@@ -12,7 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.plnyyanks.tba.apiv2.APIv2Helper;
+import com.plnyyanks.tba.apiv2.interfaces.APIv2;
+import com.plnyyanks.tba.apiv2.models.Event;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.models.Tournament;
@@ -30,14 +35,20 @@ public class TournamentAdapter extends RecyclerView.Adapter<TournamentAdapter.Vi
     public TournamentAdapter(Activity activity){
         mActivity = activity;
         mItemList = new ArrayList<>();
-        test();
+
+        //Grab tournament list using TBA API
+        APIv2 tbaAPI = APIv2Helper.getAPI();
+        List<Event> eventsInYear = tbaAPI.fetchEventsInYear(2016, null);
+        for (Event i : eventsInYear) {
+            mItemList.add(new Tournament(i.getName(), i.getEvent_code()));
+        }
         notifyDataSetChanged();
     }
 
-    private void test(){
-        for(int i = 1; i < 11; i++)
-            mItemList.add(new Tournament("Tournament: " + i));
-    }
+//    private void test(){
+//        for(int i = 1; i < 11; i++)
+//            mItemList.add(new Tournament("Tournament: " + i));
+//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

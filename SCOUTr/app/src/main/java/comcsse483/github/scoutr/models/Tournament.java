@@ -3,6 +3,8 @@ package comcsse483.github.scoutr.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.squareup.okhttp.OkHttpClient;
+
 import comcsse483.github.scoutr.TeamPosition;
 
 /**
@@ -10,10 +12,13 @@ import comcsse483.github.scoutr.TeamPosition;
  */
 public class Tournament implements Parcelable{
     private String mName;
+    private String mEventCode;
     private TeamPosition mTeamPosition;
 
-    public Tournament(String name){
+    public Tournament(String name, String eventCode){
         mName = name;
+        mEventCode = eventCode;
+
     }
 
     protected Tournament(Parcel in) {

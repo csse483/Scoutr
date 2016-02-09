@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.plnyyanks.tba.apiv2.models.Team;
+
 import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.Tournament;
 import comcsse483.github.scoutr.DatabaseContract.TeamMatchEntry;
@@ -23,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
         super(context, DB_NAME, null, 1);
         SQLiteDatabase db = this.getWritableDatabase();
+
     }
 
     @Override
