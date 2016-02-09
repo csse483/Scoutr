@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
+import comcsse483.github.scoutr.Constants;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.Utils;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
@@ -28,7 +29,7 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
         //TODO: Populate Arraylist of matches
         matches = Utils.generateSampleTeamList();
         mListener = listener;
-        Log.d("APT", "adapter created");
+        Log.d(Constants.TAG, "Match list adapter created");
     }
 
     @Override
@@ -60,7 +61,7 @@ public class MatchListAdapter extends RecyclerView.Adapter<MatchListAdapter.View
     }
 
     private int getAlliancePredictedScore(ArrayList<Team> teams) {
-        //TODO
+        //TODO: Get alliance predicted score from database
         Random rnd = new Random();
         return rnd.nextInt(100);
     }

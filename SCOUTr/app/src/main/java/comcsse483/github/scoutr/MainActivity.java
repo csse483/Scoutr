@@ -1,7 +1,6 @@
 package comcsse483.github.scoutr;
 
 
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -33,20 +32,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        APIv2Helper.setAppId("frc5188:scouting_app:v0.1");
+        APIv2Helper.setAppId(Constants.API_ID);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mDBHelper = new DBHelper(this);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -115,6 +105,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_test_data:
                 switchTo = new TestDBFragment();
                 break;
+            //TODO: Migrate test data view into view data fragment
 //            case R.id.nav_view_data:
 //                switchTo = new ViewDataFragment();
 //                break;
@@ -136,6 +127,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     @Override
     public void switchToDetailFragment(Match match) {
