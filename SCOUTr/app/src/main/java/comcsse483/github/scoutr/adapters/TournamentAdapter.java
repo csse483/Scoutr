@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,12 +38,8 @@ public class TournamentAdapter extends RecyclerView.Adapter<TournamentAdapter.Vi
         mItemList = new ArrayList<>();
 
         //Grab tournament list using TBA API
-        APIv2 tbaAPI = APIv2Helper.getAPI();
-        List<Event> eventsInYear = tbaAPI.fetchEventsInYear(2016, null);
-        for (Event i : eventsInYear) {
-            mItemList.add(new Tournament(i.getName(), i.getEvent_code()));
-        }
-        notifyDataSetChanged();
+        new GetEventsTask().execute(2016);
+
     }
 
 //    private void test(){
@@ -122,5 +119,25 @@ public class TournamentAdapter extends RecyclerView.Adapter<TournamentAdapter.Vi
 //        recordDataIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        recordDataIntent.putExtra(Constants.KEY_TOURNAMENT, tournament);
 //        mActivity.startActivity(recordDataIntent);
+    }
+
+    class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
+
+        @Override
+        protected List<Event> doInBackground(Integer... params) {
+            int year = params[0];
+            APIv2 tbaAPI = APIv2Helper.getAPI();
+            List<Event> eventsInYear = tbaAPI.fetchEventsInYear(2016, null);
+            return eventsInYear;
+        }
+
+        @Override
+        protected void onPostExecute(List<Event> events) {
+            super.onPostExecute(events);
+            for (Event i : events) {
+                mItemList.add(new Tournament(i.getName(), i.getEvent_code()));
+            }
+            notifyDataSetChanged();
+        }
     }
 }
