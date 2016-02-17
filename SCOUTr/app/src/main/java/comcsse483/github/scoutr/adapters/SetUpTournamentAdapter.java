@@ -38,6 +38,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
     private Activity mActivity;
     private ArrayList<Tournament> mItemList;
     private FragmentManager mSupportFragmentManager;
+    private Tournament selectedTournament;
 
 
     public SetUpTournamentAdapter(Activity activity, FragmentManager man) {
@@ -112,7 +113,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
                 }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
-                        launchRecordData(localTournament);
+                        getMatchList(localTournament);
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -125,6 +126,12 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
             }
         };
         df.show(mActivity.getFragmentManager(), mActivity.getString(R.string.select_team_fragment_title));
+    }
+
+    private void getMatchList(Tournament localTournament) {
+        selectedTournament = localTournament;
+        new GetMatchesTask().execute(localTournament.getmEventCode());
+        //launchRecordData(localTournament);
     }
 
     private void launchRecordData(Tournament tournament) {
@@ -145,7 +152,6 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
     }
 
     class GetMatchesTask extends AsyncTask<String, Void, List<Match>> {
-
         @Override
         protected List<Match> doInBackground(String... params) {
             String eventID = params[0];
@@ -158,6 +164,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         protected void onPostExecute(List<Match> matches) {
             super.onPostExecute(matches);
             ((MainActivity) mActivity).setMatches(matches);
+            launchRecordData(selectedTournament);
         }
     }
     class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
@@ -166,7 +173,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         protected List<Event> doInBackground(Integer... params) {
             int year = params[0];
             APIv2 tbaAPI = APIv2Helper.getAPI();
-            List<Event> eventsInYear = tbaAPI.fetchEventsInYear(2016, null);
+            List<Event> eventsInYear = tbaAPI.fetchEventsInYear(Constants.YEAR, null);
             return eventsInYear;
         }
 
@@ -174,7 +181,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         protected void onPostExecute(List<Event> events) {
             super.onPostExecute(events);
             for (Event i : events) {
-                mItemList.add(new Tournament(i.getName(), i.getEvent_code()));
+                mItemList.add(new Tournament(i.getName(), i.getKey()));
             }
             notifyDataSetChanged();
         }
