@@ -85,8 +85,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public String[] getDataToSync() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME_DATA_CONTAINER, null, null, null, null, null, null);
-        String[] output = new String[]{};
+        String[] output = new String[cursor.getCount()];
         for (int row = 0; row < cursor.getCount(); row++) {
+            cursor.moveToPosition(row);
             String rowString = "";
             for (String column : TeamMatchEntry.getListOfColumns()) {
                 rowString = rowString + cursor.getInt(cursor.getColumnIndex(column)) + " ";
