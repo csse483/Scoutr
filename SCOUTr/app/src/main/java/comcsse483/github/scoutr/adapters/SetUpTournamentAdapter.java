@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,8 @@ import com.plnyyanks.tba.apiv2.models.Event;
 import java.util.ArrayList;
 import java.util.List;
 
+import comcsse483.github.scoutr.Constants;
+import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
@@ -42,7 +45,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         mSupportFragmentManager = man;
 
         //Grab tournament list using TBA API
-        new GetEventsTask().execute(2016);
+        new GetEventsTask().execute(Constants.YEAR);
 
     }
 
@@ -124,13 +127,19 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
     }
 
     private void launchRecordData(Tournament tournament) {
+        MainActivity.hasTournament = true;
+
         FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
         RecordDataFragment fragment = RecordDataFragment.newInstance(tournament);
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
+
+
     }
 
     private void cancel() {
+        MainActivity.hasTournament = false;
+
         FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
         SetUpNewTournamentFragment fragment = new SetUpNewTournamentFragment();
         ft.replace(R.id.fragment_container, fragment);

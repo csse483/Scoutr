@@ -7,6 +7,8 @@ public class Constants {
     public final static String KEY_TOURNAMENT = "KEY_TOURNAMENT";
     public final static String TAG = "SCOUTr";
     public final static String API_ID = "frc5188:scouting_app:v0.1";
+    public final static int YEAR = 2015;
+    /*----------------------------------------
 
     /*---------------------------------------Used By RecordDataAdapter----------------------------*/
     // Describes the type of data being collected

@@ -44,7 +44,10 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         if (getArguments() != null) {
             mTournament = (Tournament) getArguments().get(TOURNAMENT);
         }
-
+        if(mTournament == null){
+            launchSetUpTournamentFragment(getString(R.string.no_available_tournament));
+            return inflater.inflate(R.layout.fragment_record_data, container, false);
+        }
         //TODO: Set Team ID for data container
         mDataContainer = new DataContainer();
         mAdapter = new RecordDataAdapter(getContext());
@@ -107,9 +110,9 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         return mDataContainer;
     }
 
-    private void launchSetUpTournamentFragment() {
+    private void launchSetUpTournamentFragment(String message) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        SetUpNewTournamentFragment fragment = SetUpNewTournamentFragment.newInstance(getString(R.string.select_new_tournament));
+        SetUpNewTournamentFragment fragment = SetUpNewTournamentFragment.newInstance(message);
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
 
@@ -119,7 +122,6 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         //TODO: Write the data container to the database
         exportData();
-
-        launchSetUpTournamentFragment();
+        launchSetUpTournamentFragment(getString(R.string.select_new_tournament));
     }
 }

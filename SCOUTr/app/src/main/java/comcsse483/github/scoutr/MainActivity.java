@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 
@@ -27,6 +28,8 @@ import comcsse483.github.scoutr.models.Tournament;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener {
 
+    public static boolean hasTournament = false;
+    private Fragment mCurrentFragment;
 
     public DBHelper mDBHelper;
 
@@ -51,7 +54,8 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container, new SetUpNewTournamentFragment());
+            mCurrentFragment = new SetUpNewTournamentFragment();
+            ft.replace(R.id.fragment_container, mCurrentFragment);
             ft.commit();
         }
     }
@@ -101,7 +105,12 @@ public class MainActivity extends AppCompatActivity
                 switchTo = new SetUpNewTournamentFragment();
                 break;
             case R.id.nav_record_data:
-                switchTo = RecordDataFragment.newInstance(getTournament());
+                if (mCurrentFragment instanceof RecordDataFragment) {
+                    //TODO: Find way of storing the current tournament
+                    switchTo = RecordDataFragment.newInstance(getTournament());
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.select_tournament), Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_test_data:
                 switchTo = new TestDBFragment();
@@ -113,8 +122,9 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (switchTo != null) {
+            mCurrentFragment = switchTo;
             android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container, switchTo);
+            ft.replace(R.id.fragment_container, mCurrentFragment);
 
             //Manage back stack
             for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
@@ -139,7 +149,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private Tournament getTournament() {
-
+        //TODO: Fix temporary storage of current tournament object
         return null;
     }
 }
