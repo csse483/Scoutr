@@ -70,7 +70,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
 
 
             }
-            newContainer.setShotPercetage((double) shotsAttempted / shotsMade);
+            newContainer.setShotPercetage((double) shotsMade / shotsAttempted);
             newContainer.setNumCrossings(numCrossings);
 
             mItemList.add(newContainer);
