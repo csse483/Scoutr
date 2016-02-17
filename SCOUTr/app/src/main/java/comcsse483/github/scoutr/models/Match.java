@@ -3,11 +3,13 @@ package comcsse483.github.scoutr.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Comparator;
+
 /**
  * Class that represents a match, and contains all relevant information
  * about a particular match and its teams.
  */
-public class Match implements Parcelable {
+public class Match implements Parcelable, Comparable<Match> {
     private int mMatchNumber;
 
     private int[] mBlueTeams;
@@ -79,5 +81,15 @@ public class Match implements Parcelable {
         dest.writeInt(mMatchNumber);
         dest.writeIntArray(mBlueTeams);
         dest.writeIntArray(mRedTeams);
+    }
+
+    @Override
+    public int compareTo(Match another) {
+        if (mMatchNumber > another.getMatchNumber()) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
     }
 }
