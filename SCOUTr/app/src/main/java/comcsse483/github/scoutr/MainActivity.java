@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity
     public void switchToDetailFragment(Match match) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new ViewDataFragment());
-        ft.addToBackStack("detail");
+//        ft.addToBackStack("detail");
         ft.commit();
     }
 

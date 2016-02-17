@@ -51,7 +51,6 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
             mMatchNumber = getArguments().getInt(MATCH_NUMBER);
         }
 
-        //TODO: Set Team ID for data container
         mAdapter = new RecordDataAdapter(getContext());
 
         //Set tournament
@@ -106,32 +105,6 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
                 }
             }
         }
-//        List<Match> mMatches = ((MainActivity) getActivity()).getmMatches();
-//        for (Match i : mMatches) {
-//            if (i.getComp_level().equals("qm") && i.getMatch_number() == mMatchNumber) {
-//                //DONE: Grab team number from alliances JsonObject
-//                switch (mTournament.getTeamPosition()) {
-//                    case BLUE1:
-//                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
-//                        break;
-//                    case BLUE2:
-//                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
-//                        break;
-//                    case BLUE3:
-//                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
-//                        break;
-//                    case RED1:
-//                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
-//                        break;
-//                    case RED2:
-//                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
-//                        break;
-//                    case RED3:
-//                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
-//                        break;
-//                }
-//            }
-//        }
         mTeamNumber = Integer.parseInt(pos);
         sb.append(pos);
         return sb.toString();
