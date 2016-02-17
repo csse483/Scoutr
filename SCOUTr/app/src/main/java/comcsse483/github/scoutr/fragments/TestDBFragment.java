@@ -10,13 +10,22 @@ import android.view.ViewGroup;
 
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.adapters.TestDBAdapter;
+import comcsse483.github.scoutr.models.Match;
 
 /**
  * A simple fragment that shows match data pulled from the database.
  */
 public class TestDBFragment extends Fragment {
-
+    private static final String MATCH = "MATCH";
     private TestDBAdapter mAdapter;
+
+    public static TestDBFragment newInstance(Match match){
+        Bundle args = new Bundle();
+        args.putParcelable(MATCH, match);
+        TestDBFragment fragment = new TestDBFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

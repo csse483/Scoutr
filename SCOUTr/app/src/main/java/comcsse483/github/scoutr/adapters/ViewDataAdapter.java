@@ -29,6 +29,7 @@ public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHo
 
     public ViewDataAdapter(ViewDataFragment.OnFragmentInteractionListener listener, Context mActivity) {
         matches = ((MainActivity) mActivity).getMatches();
+
         Collections.sort(matches, new Comparator<Match>() {
             @Override
             public int compare(Match lhs, Match rhs) {
