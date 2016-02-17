@@ -31,6 +31,7 @@ import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.StatusFragment;
 import comcsse483.github.scoutr.fragments.SyncDataDialogFragment;
 import comcsse483.github.scoutr.fragments.TestDBFragment;
+import comcsse483.github.scoutr.fragments.ViewDataDetailFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
 import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.Match;
@@ -135,9 +136,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_set_up_new_tournament:
                 switchTo = new SetUpNewTournamentFragment();
                 break;
-            case R.id.nav_test_data:
-                switchTo = new TestDBFragment();
-                break;
+//            case R.id.nav_test_data:
+//                switchTo = new TestDBFragment();
+//                break;
             //TODO: Migrate test data view into view data fragment
             case R.id.nav_view_data:
                 switchTo = new ViewDataFragment();
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void switchToDetailFragment(Match match) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new ViewDataFragment());
+        ft.replace(R.id.fragment_container, new TestDBFragment());
 //        ft.addToBackStack("detail");
         ft.commit();
     }
