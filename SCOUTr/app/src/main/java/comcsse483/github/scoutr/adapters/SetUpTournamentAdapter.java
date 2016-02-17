@@ -7,7 +7,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +27,7 @@ import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
+import comcsse483.github.scoutr.fragments.StatusFragment;
 import comcsse483.github.scoutr.models.Tournament;
 
 /**
@@ -111,7 +111,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
                 }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
-                        launchRecordData(localTournament);
+                        okay(localTournament);
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -126,26 +126,25 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         df.show(mActivity.getFragmentManager(), mActivity.getString(R.string.select_team_fragment_title));
     }
 
-    private void launchRecordData(Tournament tournament) {
-        MainActivity.hasTournament = true;
-
+    private void launchStatusFragment() {
         FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
-        RecordDataFragment fragment = RecordDataFragment.newInstance(tournament);
+        StatusFragment fragment = StatusFragment.newInstance();
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
-
-
     }
 
     private void cancel() {
-        MainActivity.hasTournament = false;
-
-        FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
-        SetUpNewTournamentFragment fragment = new SetUpNewTournamentFragment();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
+//        FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
+//        SetUpNewTournamentFragment fragment = new SetUpNewTournamentFragment();
+//        ft.replace(R.id.fragment_container, fragment);
+//        ft.commit();
     }
 
+    private void okay(Tournament tournament){
+        //Set the tournament
+        ((MainActivity) mActivity).setTournament(tournament);
+        launchStatusFragment();
+    }
 
     class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
 

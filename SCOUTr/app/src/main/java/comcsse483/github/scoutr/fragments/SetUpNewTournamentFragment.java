@@ -17,14 +17,13 @@ import comcsse483.github.scoutr.adapters.SetUpTournamentAdapter;
  * pulled from The Blue Alliance. Team positions are selected when a match is selected.
  */
 public class SetUpNewTournamentFragment extends Fragment {
-    private static String MESSAGE = "MESSAGE";
+//    private static String MESSAGE = "MESSAGE";
 
     public SetUpNewTournamentFragment() {
     }
 
-    public static SetUpNewTournamentFragment newInstance(String message) {
+    public static SetUpNewTournamentFragment newInstance() {
         Bundle args = new Bundle();
-        args.putString(MESSAGE, message);
         SetUpNewTournamentFragment fragment = new SetUpNewTournamentFragment();
         fragment.setArguments(args);
         return fragment;
@@ -33,12 +32,12 @@ public class SetUpNewTournamentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (getArguments() != null) {
-            String message = getArguments().getString(MESSAGE);
-            if (!message.equals("")) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            }
-        }
+//        if (getArguments() != null) {
+//            String message = getArguments().getString(MESSAGE);
+//            if (!message.equals("")) {
+//                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+//            }
+//        }
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_set_up_new_tournament, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
         SetUpTournamentAdapter adapter = new SetUpTournamentAdapter(getActivity(), getFragmentManager());

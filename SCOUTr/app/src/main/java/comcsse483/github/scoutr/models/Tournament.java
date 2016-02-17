@@ -6,12 +6,12 @@ import android.os.Parcelable;
 /**
  * A model for a tournament.
  */
-public class Tournament implements Parcelable{
+public class Tournament implements Parcelable {
     private String mName;
     private String mEventCode;
     private TeamPosition mTeamPosition;
 
-    public Tournament(String name, String eventCode){
+    public Tournament(String name, String eventCode) {
         mName = name;
         mEventCode = eventCode;
 
@@ -33,8 +33,8 @@ public class Tournament implements Parcelable{
         }
     };
 
-    public void setTeamPosition(int i){
-        switch (i){
+    public void setTeamPosition(int i) {
+        switch (i) {
             case 0:
                 mTeamPosition = TeamPosition.BLUE1;
                 break;
@@ -56,10 +56,52 @@ public class Tournament implements Parcelable{
         }
     }
 
-    public TeamPosition getTeamPosition(){
+    public TeamPosition getTeamPosition() {
         return mTeamPosition;
     }
-    public String getName(){
+
+    public String getTeamPositionString() {
+        String pos = "";
+        switch (mTeamPosition) {
+            case BLUE1:
+                pos = "Blue 1";
+                break;
+            case BLUE2:
+                pos = "Blue 2";
+                break;
+            case BLUE3:
+                pos = "Blue 3";
+                break;
+            case RED1:
+                pos = "Red 1";
+                break;
+            case RED2:
+                pos = "Red 2";
+                break;
+            case RED3:
+                pos = "Red 3";
+                break;
+        }
+
+        return pos;
+    }
+
+    public boolean getColor() {
+        switch (mTeamPosition) {
+            case BLUE1:
+            case BLUE2:
+            case BLUE3:
+                return true;
+            case RED1:
+            case RED2:
+            case RED3:
+                return false;
+        }
+
+        return false;
+    }
+
+    public String getName() {
         return mName;
     }
 

@@ -13,12 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 
-import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
+import comcsse483.github.scoutr.fragments.StatusFragment;
 import comcsse483.github.scoutr.fragments.SyncDataDialogFragment;
 import comcsse483.github.scoutr.fragments.TestDBFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
@@ -28,8 +27,9 @@ import comcsse483.github.scoutr.models.Tournament;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener {
 
-    public static boolean hasTournament = false;
     private Fragment mCurrentFragment;
+
+    private Tournament mTournament;
 
     public DBHelper mDBHelper;
 
@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity
             mCurrentFragment = new SetUpNewTournamentFragment();
             ft.replace(R.id.fragment_container, mCurrentFragment);
             ft.commit();
+        }else{
+            //load shared preferences and get the previous tournament
         }
     }
 
@@ -99,19 +101,22 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         Fragment switchTo = null;
-
+        //TODO: Fix which nav item is selected when changing between fragments
         switch (item.getItemId()) {
+            case R.id.nav_status:
+                switchTo = StatusFragment.newInstance();
+                break;
             case R.id.nav_set_up_new_tournament:
                 switchTo = new SetUpNewTournamentFragment();
                 break;
-            case R.id.nav_record_data:
-                if (mCurrentFragment instanceof RecordDataFragment) {
-                    //TODO: Find way of storing the current tournament
-                    switchTo = RecordDataFragment.newInstance(getTournament());
-                } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.select_tournament), Toast.LENGTH_SHORT).show();
-                }
-                break;
+//            case R.id.nav_record_data:
+//                if (mCurrentFragment instanceof RecordDataFragment) {
+//                    //TODO: Find way of storing the current tournament
+//                    switchTo = RecordDataFragment.newInstance(getTournament());
+//                } else {
+//                    Toast.makeText(getApplicationContext(), getString(R.string.select_tournament), Toast.LENGTH_SHORT).show();
+//                }
+//                break;
             case R.id.nav_test_data:
                 switchTo = new TestDBFragment();
                 break;
@@ -148,12 +153,15 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
     }
 
-    private Tournament getTournament() {
-        //TODO: Fix temporary storage of current tournament object
-        return null;
+    public Tournament getTournament(){
+        return mTournament;
     }
 
-    public DBHelper getDBHelper(){
+    public void setTournament(Tournament tournament){
+        mTournament = tournament;
+    }
+
+    public DBHelper getDBHelper() {
         return mDBHelper;
     }
 }

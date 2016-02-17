@@ -3,17 +3,20 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_status"
+            android:title="@string/status" />
+        <item
             android:id="@+id/nav_set_up_new_tournament"
             android:title="@string/set_up_new_tournament" />
-        <item
-            android:id="@+id/nav_record_data"
-            android:title="@string/record_data" />
+        <!--<item-->
+        <!--android:id="@+id/nav_record_data"-->
+        <!--android:title="@string/record_data" />-->
         <item
             android:id="@+id/nav_test_data"
             android:title="@string/view_data" />
         <!--<item-->
-            <!--android:id="@+id/nav_view_data"-->
-            <!--android:title="@string/view_data" />-->
+        <!--android:id="@+id/nav_view_data"-->
+        <!--android:title="@string/view_data" />-->
     </group>
 
 

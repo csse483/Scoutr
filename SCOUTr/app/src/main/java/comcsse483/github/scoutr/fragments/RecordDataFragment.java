@@ -26,16 +26,15 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
 
 
     private Tournament mTournament;
-    private static final String TOURNAMENT = "TOURNAMENT";
+
 
     public RecordDataFragment() {
         // Required empty public constructor
     }
 
-    public static RecordDataFragment newInstance(Tournament tournamentToDisplay) {
+    public static RecordDataFragment newInstance() {
         RecordDataFragment fragment = new RecordDataFragment();
         Bundle args = new Bundle();
-        args.putParcelable(TOURNAMENT, tournamentToDisplay);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,15 +42,13 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mTournament = (Tournament) getArguments().get(TOURNAMENT);
-        }
-        if(mTournament == null){
-            launchSetUpTournamentFragment(getString(R.string.no_available_tournament));
-            return inflater.inflate(R.layout.fragment_record_data, container, false);
-        }
+
         //TODO: Set Team ID for data container
         mAdapter = new RecordDataAdapter(getContext());
+
+        //Set tournament
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mTournament = mainActivity.getTournament();
 
         View view = inflater.inflate(R.layout.fragment_record_data, container, false);
 
@@ -112,9 +109,9 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         return dataContainer;
     }
 
-    private void launchSetUpTournamentFragment(String message) {
+    private void launchStatusFragment() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        SetUpNewTournamentFragment fragment = SetUpNewTournamentFragment.newInstance(message);
+        StatusFragment fragment = StatusFragment.newInstance();
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
 
@@ -126,6 +123,6 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         MainActivity activity = (MainActivity) getActivity();
         DBHelper dbHelper = activity.getDBHelper();
         dbHelper.insertData(exportData());
-        launchSetUpTournamentFragment(getString(R.string.select_new_tournament));
+        launchStatusFragment();
     }
 }
