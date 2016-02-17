@@ -27,7 +27,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
 
     public TestDBAdapter(Context context) {
         //Pull data from database and add to arrayList
-        DBHelper mDBHelper = ((MainActivity) context).mDBHelper;
+        DBHelper mDBHelper = ((MainActivity) context).getDBHelper();
         for (DataContainer i : Utils.generateSampleScoutingData()) {
             mDBHelper.insertDataContainer(i);
         }

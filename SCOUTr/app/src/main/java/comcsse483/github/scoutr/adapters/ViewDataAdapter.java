@@ -1,5 +1,6 @@
 package comcsse483.github.scoutr.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,14 +9,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 import comcsse483.github.scoutr.Constants;
+import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
-import comcsse483.github.scoutr.Utils;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
 import comcsse483.github.scoutr.models.Match;
-import comcsse483.github.scoutr.models.Team;
 
 /**
  * Recycler view adapter for the View Data fragment. Displays a list of all mMatches and their results. Pulls match information from the database.
@@ -25,9 +27,14 @@ public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHo
     private ArrayList<Match> matches;
     private ViewDataFragment.OnFragmentInteractionListener mListener;
 
-    public ViewDataAdapter(ViewDataFragment.OnFragmentInteractionListener listener) {
-        //TODO: Populate Arraylist of mMatches
-        matches = Utils.generateSampleTeamList();
+    public ViewDataAdapter(ViewDataFragment.OnFragmentInteractionListener listener, Context mActivity) {
+        matches = ((MainActivity) mActivity).getMatches();
+        Collections.sort(matches, new Comparator<Match>() {
+            @Override
+            public int compare(Match lhs, Match rhs) {
+                return lhs.compareTo(rhs);
+            }
+        });
         mListener = listener;
         Log.d(Constants.TAG, "Match list adapter created");
     }
@@ -41,29 +48,29 @@ public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewDataAdapter.ViewHolder holder, int position) {
         final Match match = getMatch(position);
-//        holder.mMatchNumberView.setText("Match\n" + match.getNumber());
-//        holder.mBlue1.setText(match.getmBlueTeamList().get(0).getTeamNumber() + "");
-//        holder.mBlue2.setText(match.getmBlueTeamList().get(1).getTeamNumber() + "");
-//        holder.mBlue3.setText(match.getmBlueTeamList().get(2).getTeamNumber() + "");
-//        holder.mRed1.setText(match.getmRedTeamList().get(0).getTeamNumber() + "");
-//        holder.mRed2.setText(match.getmRedTeamList().get(1).getTeamNumber() + "");
-//        holder.mRed3.setText(match.getmRedTeamList().get(2).getTeamNumber() + "");
-//        holder.mBlueScore.setText(getAlliancePredictedScore(match.getmBlueTeamList()) + "");
-//        holder.mRedScore.setText(getAlliancePredictedScore(match.getmRedTeamList()) + "");
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mListener.switchToDetailFragment(match);
-//            }
-//        });
+        holder.mMatchNumberView.setText("Match\n" + match.getMatchNumber());
+        holder.mBlue1.setText(match.getBlue(0) + "");
+        holder.mBlue2.setText(match.getBlue(1) + "");
+        holder.mBlue3.setText(match.getBlue(2) + "");
+        holder.mRed1.setText(match.getRed(0) + "");
+        holder.mRed2.setText(match.getRed(1) + "");
+        holder.mRed3.setText(match.getRed(2) + "");
+        holder.mBlueScore.setText(getAlliancePredictedScore(match.getBlueTeams()) + "");
+        holder.mRedScore.setText(getAlliancePredictedScore(match.getRedTeams()) + "");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.switchToDetailFragment(match);
+            }
+        });
 
 
     }
 
-    private int getAlliancePredictedScore(ArrayList<Team> teams) {
+    private int getAlliancePredictedScore(int[] teams) {
         //TODO: Get alliance predicted score from database
         Random rnd = new Random();
-        return rnd.nextInt(100);
+        return rnd.nextInt(300);
     }
 
     @Override

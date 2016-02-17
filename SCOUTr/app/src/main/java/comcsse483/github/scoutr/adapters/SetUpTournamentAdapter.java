@@ -163,7 +163,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
                 }
             }
             //Store Match Data in database
-            ((MainActivity) mActivity).mDBHelper.insertMatchList(matches);
+            ((MainActivity) mActivity).getDBHelper().insertMatchList(matches);
             return matches;
         }
 

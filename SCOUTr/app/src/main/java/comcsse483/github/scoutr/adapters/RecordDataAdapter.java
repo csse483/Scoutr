@@ -40,8 +40,9 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
         //Takes all of the values in the data entry containers and writes them to the data container
         for (int i = 0; i < mItemList.size(); i++) {
             DataEntry dataEntry = mItemList.get(i);
-
-            localDataContainer.setData(dataEntry.getName(), dataEntry.getData());
+            if(!dataEntry.getName().equals(Constants.DATA_NAMES[0]) || !dataEntry.getName().equals(Constants.DATA_NAMES[1])){
+                localDataContainer.setData(dataEntry.getName(), dataEntry.getData());
+            }
         }
 
         Log.e("SCOUTr", "Successfully captured data in form.");

@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     public DBHelper mDBHelper;
     public ArrayList<Match> mMatches;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,9 +139,9 @@ public class MainActivity extends AppCompatActivity
                 switchTo = new TestDBFragment();
                 break;
             //TODO: Migrate test data view into view data fragment
-//            case R.id.nav_view_data:
-//                switchTo = new ViewDataFragment();
-//                break;
+            case R.id.nav_view_data:
+                switchTo = new ViewDataFragment();
+                break;
         }
 
         if (switchTo != null) {
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity
     public void switchToDetailFragment(Match match) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new ViewDataFragment());
-        ft.addToBackStack("detail");
+//        ft.addToBackStack("detail");
         ft.commit();
     }
 

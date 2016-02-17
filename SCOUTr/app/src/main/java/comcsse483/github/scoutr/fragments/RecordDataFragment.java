@@ -51,7 +51,6 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
             mMatchNumber = getArguments().getInt(Constants.MATCH_NUMBER);
         }
 
-        //TODO: Set Team ID for data container
         mAdapter = new RecordDataAdapter(getContext());
 
         //Set tournament
