@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 
+import java.util.List;
+
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.SyncDataDialogFragment;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment mCurrentFragment;
 
     public DBHelper mDBHelper;
+    public List<com.plnyyanks.tba.apiv2.models.Match> matches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,5 +154,9 @@ public class MainActivity extends AppCompatActivity
     private Tournament getTournament() {
         //TODO: Fix temporary storage of current tournament object
         return null;
+    }
+
+    public void setMatches(List<com.plnyyanks.tba.apiv2.models.Match> matches) {
+        this.matches = matches;
     }
 }

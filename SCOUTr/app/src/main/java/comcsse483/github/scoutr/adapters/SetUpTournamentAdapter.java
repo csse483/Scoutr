@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 import com.plnyyanks.tba.apiv2.interfaces.APIv2;
 import com.plnyyanks.tba.apiv2.models.Event;
+import com.plnyyanks.tba.apiv2.models.Match;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,13 +129,10 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
 
     private void launchRecordData(Tournament tournament) {
         MainActivity.hasTournament = true;
-
         FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
         RecordDataFragment fragment = RecordDataFragment.newInstance(tournament);
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
-
-
     }
 
     private void cancel() {
@@ -146,7 +144,22 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         ft.commit();
     }
 
+    class GetMatchesTask extends AsyncTask<String, Void, List<Match>> {
 
+        @Override
+        protected List<Match> doInBackground(String... params) {
+            String eventID = params[0];
+            APIv2 tbaAPI = APIv2Helper.getAPI();
+            List<Match> matches = tbaAPI.fetchEventMatches(eventID, null);
+            return matches;
+        }
+
+        @Override
+        protected void onPostExecute(List<Match> matches) {
+            super.onPostExecute(matches);
+            ((MainActivity) mActivity).setMatches(matches);
+        }
+    }
     class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
 
         @Override
