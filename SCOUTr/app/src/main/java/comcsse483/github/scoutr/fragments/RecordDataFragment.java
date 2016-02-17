@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import comcsse483.github.scoutr.DBHelper;
+import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.adapters.RecordDataAdapter;
 import comcsse483.github.scoutr.models.DataContainer;
@@ -21,7 +23,7 @@ import comcsse483.github.scoutr.models.Tournament;
  */
 public class RecordDataFragment extends Fragment implements View.OnClickListener {
     private RecordDataAdapter mAdapter;
-    private DataContainer mDataContainer;
+
 
     private Tournament mTournament;
     private static final String TOURNAMENT = "TOURNAMENT";
@@ -49,7 +51,6 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
             return inflater.inflate(R.layout.fragment_record_data, container, false);
         }
         //TODO: Set Team ID for data container
-        mDataContainer = new DataContainer();
         mAdapter = new RecordDataAdapter(getContext());
 
         View view = inflater.inflate(R.layout.fragment_record_data, container, false);
@@ -101,13 +102,14 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     }
 
     /**
-     * Exports the datacontainer.
+     * Exports a datacontainer with the recorded data.
      *
      * @return DataContainer
      */
     public DataContainer exportData() {
-        mDataContainer = mAdapter.recordData(mDataContainer);
-        return mDataContainer;
+        DataContainer dataContainer = new DataContainer();
+        dataContainer = mAdapter.recordData(dataContainer);
+        return dataContainer;
     }
 
     private void launchSetUpTournamentFragment(String message) {
@@ -121,7 +123,9 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         //TODO: Write the data container to the database
-        exportData();
+        MainActivity activity = (MainActivity) getActivity();
+        DBHelper dbHelper = activity.getDBHelper();
+        dbHelper.insertData(exportData());
         launchSetUpTournamentFragment(getString(R.string.select_new_tournament));
     }
 }

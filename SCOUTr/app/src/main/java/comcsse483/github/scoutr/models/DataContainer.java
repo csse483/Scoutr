@@ -14,6 +14,7 @@ public class DataContainer {
     private int lowGoalAttempted;
     private int lowGoalScored;
 
+    //TODO: add high goal
     private int autoHighGoalAttempted;
     private int autoHighGoalScored;
     private int highGoalAttempted;
@@ -32,53 +33,63 @@ public class DataContainer {
     private boolean towerChallenged;
     private boolean towerScaled;
 
-    public DataContainer(){
+    public DataContainer() {
         //Empty constructor only used for testing
     }
 
     /**
      * Constructor that assigns a teamId. This is to be used exclusively in the future.
+     *
      * @param teamId
      */
-    public DataContainer(int teamId){
+    public DataContainer(int teamId) {
         mTeamId = teamId;
     }
 
     /**
      * Clunky method to set the corresponding data based on the name of the incoming  data entry.
+     *
      * @param dataName
      * @param data
      * @return
      */
-    public boolean setData(String dataName, Object data){
+    public boolean setData(String dataName, Object data) {
         //This is sooooooooooo ugly
-        if(dataName.equals(Constants.DATA_NAMES[0])){
+        if (dataName.equals(Constants.DATA_NAMES[0])) {
             setAutoLowGoalAttempted((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[1])){
+        } else if (dataName.equals(Constants.DATA_NAMES[1])) {
             setAutoLowGoalScored((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[2])){
+        } else if (dataName.equals(Constants.DATA_NAMES[2])) {
             setLowGoalAttempted((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[3])){
+        } else if (dataName.equals(Constants.DATA_NAMES[3])) {
             setLowGoalScored((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[4])){
+        } else if (dataName.equals(Constants.DATA_NAMES[4])) {
+            setAutoHighGoalAttempted((int) data);
+        } else if (dataName.equals(Constants.DATA_NAMES[5])) {
+            setAutoHighGoalScored((int) data);
+        } else if (dataName.equals(Constants.DATA_NAMES[6])) {
+            setHighGoalAttempted((int) data);
+        } else if (dataName.equals(Constants.DATA_NAMES[7])) {
+            setHighGoalScored((int) data);
+        } else if (dataName.equals(Constants.DATA_NAMES[8])) {
             setCrossedA1((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[5])){
+        } else if (dataName.equals(Constants.DATA_NAMES[9])) {
             setCrossedA2((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[6])){
+        } else if (dataName.equals(Constants.DATA_NAMES[10])) {
             setCrossedB1((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[7])){
+        } else if (dataName.equals(Constants.DATA_NAMES[11])) {
             setCrossedB2((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[8])){
+        } else if (dataName.equals(Constants.DATA_NAMES[12])) {
             setCrossedC1((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[9])){
+        } else if (dataName.equals(Constants.DATA_NAMES[13])) {
             setCrossedC2((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[10])){
+        } else if (dataName.equals(Constants.DATA_NAMES[14])) {
             setCrossedD1((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[11])){
+        } else if (dataName.equals(Constants.DATA_NAMES[15])) {
             setCrossedD2((int) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[12])){
+        } else if (dataName.equals(Constants.DATA_NAMES[16])) {
             setTowerChallenged((Boolean) data);
-        }else if(dataName.equals(Constants.DATA_NAMES[13])){
+        } else if (dataName.equals(Constants.DATA_NAMES[17])) {
             setTowerScaled((Boolean) data);
         }
 
@@ -232,8 +243,8 @@ public class DataContainer {
     @Override
     public String toString() {
         return "" + autoHighGoalAttempted + " " + autoHighGoalScored + " " + autoLowGoalAttempted
-                + " " + autoLowGoalScored + " " + crossedA1 + " " + crossedA2  + " " + crossedB1
-                + " " + crossedB2  + " " + crossedC1  + " " + crossedC2 + " " + crossedD1  + " " +
-                crossedD2 + " " + Boolean.toString(isTowerChallenged())  + " " + Boolean.toString(isTowerScaled());
+                + " " + autoLowGoalScored + " " + crossedA1 + " " + crossedA2 + " " + crossedB1
+                + " " + crossedB2 + " " + crossedC1 + " " + crossedC2 + " " + crossedD1 + " " +
+                crossedD2 + " " + Boolean.toString(isTowerChallenged()) + " " + Boolean.toString(isTowerScaled());
     }
 }
