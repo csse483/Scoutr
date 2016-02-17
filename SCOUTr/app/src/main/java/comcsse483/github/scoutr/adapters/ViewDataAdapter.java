@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 import comcsse483.github.scoutr.Constants;
@@ -27,6 +29,12 @@ public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHo
 
     public ViewDataAdapter(ViewDataFragment.OnFragmentInteractionListener listener, Context mActivity) {
         matches = ((MainActivity) mActivity).getMatches();
+        Collections.sort(matches, new Comparator<Match>() {
+            @Override
+            public int compare(Match lhs, Match rhs) {
+                return lhs.compareTo(rhs);
+            }
+        });
         mListener = listener;
         Log.d(Constants.TAG, "Match list adapter created");
     }
