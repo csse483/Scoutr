@@ -26,8 +26,10 @@ import comcsse483.github.scoutr.models.Tournament;
  * A fragment that has a recycler view where match data is inputted and recorded.
  */
 public class RecordDataFragment extends Fragment implements View.OnClickListener {
+    private static final String MATCH_NUMBER = "MATCH_NUMBER";
     private RecordDataAdapter mAdapter;
     private int mTeamNumber;
+    private int mMatchNumber;
 
     private Tournament mTournament;
 
@@ -35,9 +37,10 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         // Required empty public constructor
     }
 
-    public static RecordDataFragment newInstance() {
+    public static RecordDataFragment newInstance(int matchNumber) {
         RecordDataFragment fragment = new RecordDataFragment();
         Bundle args = new Bundle();
+        args.putInt(MATCH_NUMBER, matchNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,6 +48,9 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mMatchNumber = getArguments().getInt(MATCH_NUMBER);
+        }
 
         //TODO: Set Team ID for data container
         mAdapter = new RecordDataAdapter(getContext());
@@ -63,8 +69,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         recordDataButton.setOnClickListener(this);
 
         TextView teamTextView = (TextView) view.findViewById(R.id.record_data_team_text_view);
-        //TODO: Change argument to incrementing match number
-        teamTextView.setText(getTeamAndPositionString(1));
+        teamTextView.setText(getTeamAndPositionString());
         return view;
     }
 
@@ -73,13 +78,13 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private String getTeamAndPositionString(int matchNumber) {
+    private String getTeamAndPositionString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Match " + matchNumber + ": ");
+        sb.append("Match " + mMatchNumber + ": ");
         String pos = "";
         List<Match> matches = ((MainActivity) getActivity()).getMatches();
         for (Match i : matches) {
-            if (i.getComp_level().equals("qm") && i.getMatch_number() == matchNumber) {
+            if (i.getComp_level().equals("qm") && i.getMatch_number() == mMatchNumber) {
                 //DONE: Grab team number from alliances JsonObject
                 switch (mTournament.getTeamPosition()) {
                     case BLUE1:
