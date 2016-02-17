@@ -70,20 +70,29 @@ public class DBHelper extends SQLiteOpenHelper {
     public String[] getDataToSync() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
-        String[] output = new String[]{};
+        String[] output = new String[cursor.getCount()];
         for (int row = 0; row < cursor.getCount(); row++){
+            cursor.moveToPosition(row);
             String rowString = "";
             for (String column : TeamMatchEntry.getListOfColumns()){
-                rowString = rowString + cursor.getInt(cursor.getColumnIndex(column)) + " ";
+                int columnIndex = cursor.getColumnIndex(column);
+                int data = cursor.getInt(columnIndex);
+                rowString = rowString + data + " ";
             }
             output[row] = rowString;
         }
+        cursor.close();
+        db.close();
+        Log.d("NFC", output[1]);
         return output;
     }
 
     public boolean insertData (DataContainer data) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER, data.getmTeamId());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_MATCH_NUMBER, data.getMatchNumber());
 
         contentValues.put(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_ATTEMPTED, data.getAutoLowGoalAttempted());
         contentValues.put(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_SCORED, data.getAutoLowGoalScored());
@@ -113,6 +122,5 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         Log.d("DTB", "Wrote the following to db: " + data.toString());
         return isSuccessful;
-
     }
 }

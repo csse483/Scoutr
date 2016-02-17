@@ -1,7 +1,14 @@
 package comcsse483.github.scoutr;
 
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -17,7 +24,9 @@ import android.view.MenuItem;
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 
@@ -26,6 +35,7 @@ import comcsse483.github.scoutr.fragments.StatusFragment;
 import comcsse483.github.scoutr.fragments.SyncDataDialogFragment;
 import comcsse483.github.scoutr.fragments.TestDBFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
+import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.Match;
 import comcsse483.github.scoutr.models.Tournament;
 
@@ -177,5 +187,39 @@ public class MainActivity extends AppCompatActivity
     public DBHelper getDBHelper(){
 
         return mDBHelper;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Check to see that the Activity started due to an Android Beam
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+            processIntent(getIntent());
+        }
+    }
+
+    private void processIntent(Intent intent) {
+        Parcelable[] ndefMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        NdefMessage msg = (NdefMessage) ndefMessages[0];
+        NdefRecord[] records = msg.getRecords();
+        for (NdefRecord record : records) {
+            String dataString = new String(record.getPayload());
+            Scanner scanner = new Scanner(dataString);
+            DataContainer dataContainer = new DataContainer();
+            for (int i = 0; i < Constants.DATA_NAMES.length; i++) {
+                if (Constants.DATA_FIELDS[i].equals("int")) {
+                    dataContainer.setData(Constants.DATA_NAMES[i], scanner.nextInt());
+                } else {
+                    dataContainer.setData(Constants.DATA_NAMES[i], scanner.nextInt() == 1);
+                }
+            }
+            mDBHelper.insertData(dataContainer);
+        }
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        // onResume gets called after this to handle the intent
+        setIntent(intent);
     }
 }

@@ -1,5 +1,9 @@
 package comcsse483.github.scoutr.models;
 
+import android.nfc.NdefRecord;
+
+import java.util.Scanner;
+
 import comcsse483.github.scoutr.Constants;
 
 /**
@@ -46,6 +50,7 @@ public class DataContainer {
     public DataContainer(int teamId) {
         mTeamId = teamId;
     }
+
 
     /**
      * Clunky method to set the corresponding data based on the name of the incoming  data entry.
@@ -256,10 +261,7 @@ public class DataContainer {
     @Override
     public String toString() {
         //TODO: Update dataContainer toString to show each field
-        return "" + autoHighGoalAttempted + " " + autoHighGoalScored + " " + autoLowGoalAttempted
-                + " " + autoLowGoalScored + " " + crossedA1 + " " + crossedA2 + " " + crossedB1
-                + " " + crossedB2 + " " + crossedC1 + " " + crossedC2 + " " + crossedD1 + " " +
-                crossedD2 + " " + Boolean.toString(isTowerChallenged()) + " " + Boolean.toString(isTowerScaled());
+        return  mTeamId + " " + mMatchNumber + " " + Boolean.toString(isTowerChallenged()) + " " + Boolean.toString(isTowerScaled());
     }
 
     public int getmTeamId() {
