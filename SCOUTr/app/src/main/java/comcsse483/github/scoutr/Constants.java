@@ -14,11 +14,15 @@ public class Constants {
     /*---------------------------------------Used By RecordDataAdapter----------------------------*/
     // Describes the type of data being collected
     public static final String[] DATA_FIELDS = new String[]{
-            "int", "int", "int", "int", "int", "int", "int", "int", "int", "int", "int", "int", "int", "int", "int", "int",
+            "int", "int",
+            "int", "int", "int", "int",
+            "int", "int", "int", "int",
+            "int", "int", "int", "int", "int", "int", "int", "int",
             "boolean", "boolean"
     };
 
     public static final String[] DATA_NAMES = new String[]{
+            "TeamId", "Match Number",
             "Auto Low Goals Attempted", "Auto Low Goals Scored",
             "Low Goals Attempted", "Low Goals Scored",
             "Auto High Goals Attempted", "Auto High Goals Scored",
