@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void switchToDetailFragment(Match match) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new TestDBFragment());
+        ft.replace(R.id.fragment_container, TestDBFragment.newInstance(match));
 //        ft.addToBackStack("detail");
         ft.commit();
     }

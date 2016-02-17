@@ -28,13 +28,10 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
     private ArrayList<TestDataContainer> mItemList = new ArrayList<>();
     private Match mMatch;
 
-    public TestDBAdapter(Context context) {
+    public TestDBAdapter(Context context, Match match) {
+        mMatch = match;
         //Pull data from database and add to arrayList
         DBHelper mDBHelper = ((MainActivity) context).getDBHelper();
-        for (DataContainer i : Utils.generateSampleScoutingData()) {
-            mDBHelper.insertDataContainer(i);
-        }
-
         SQLiteDatabase mDB = mDBHelper.getReadableDatabase();
 
         int[] teamList = new int[mMatch.getBlueTeams().length + mMatch.getRedTeams().length];
@@ -47,8 +44,8 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
             int shotsAttempted = 0;
             int shotsMade = 0;
             int numCrossings = 0;
-            for (int j = 0; i < mCursor.getCount(); i++) {
-                mCursor.moveToPosition(i);
+            for (int j = 0; j < mCursor.getCount(); j++) {
+                mCursor.moveToPosition(j);
 
                 //Shot percentage
                 shotsAttempted += mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_ATTEMPTED)) +
