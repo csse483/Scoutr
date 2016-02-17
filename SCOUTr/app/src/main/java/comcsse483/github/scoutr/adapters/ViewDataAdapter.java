@@ -29,12 +29,21 @@ public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHo
 
     public ViewDataAdapter(ViewDataFragment.OnFragmentInteractionListener listener, Context mActivity) {
         matches = ((MainActivity) mActivity).getMatches();
-//        Collections.sort(matches, new Comparator<Match>() {
-//            @Override
-//            public int compare(Match lhs, Match rhs) {
-//                return lhs.compareTo(rhs);
-//            }
-//        });
+
+        Collections.sort(matches, new Comparator<Match>() {
+            @Override
+            public int compare(Match lhs, Match rhs) {
+                if (lhs.getMatchNumber() > rhs.getMatchNumber()) {
+                    return 1;
+                }
+                else if (lhs.getMatchNumber() < rhs.getMatchNumber()) {
+                    return -1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        });
         mListener = listener;
         Log.d(Constants.TAG, "Match list adapter created");
     }
