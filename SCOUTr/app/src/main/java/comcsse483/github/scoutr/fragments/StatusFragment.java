@@ -15,6 +15,7 @@ import com.plnyyanks.tba.apiv2.models.Match;
 
 import java.util.ArrayList;
 
+import comcsse483.github.scoutr.Constants;
 import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.models.Tournament;
@@ -23,10 +24,9 @@ import comcsse483.github.scoutr.models.Tournament;
  * Fragment that displays state information about the app, tournament, and matches. Serves as the main page of the app.
  */
 public class StatusFragment extends Fragment {
-    private static String STATUS_FRAGMENT_PREF = "STATUS_FRAGMENT_PREF";
     private static String MATCH_NUMBER = "MATCH_NUMBER";
     private static String TOURNAMENT_NAME = "TOURNAMENT_NAME";
-    private static int MODE_PRIVATE = 0;
+
 
     private Tournament mTournament;
 
@@ -56,7 +56,7 @@ public class StatusFragment extends Fragment {
             launchSetUpNewTournament();
         }
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(STATUS_FRAGMENT_PREF, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.APP_SHARED_PREF, Constants.MODE_PRIVATE);
         int num = sharedPreferences.getInt(MATCH_NUMBER, -1);
         String name = sharedPreferences.getString(TOURNAMENT_NAME, "");
 
@@ -67,7 +67,7 @@ public class StatusFragment extends Fragment {
             } else {
                 matchCounter = 1;
             }
-        }else{
+        } else {
             matchCounter = 1;
         }
 
@@ -112,8 +112,8 @@ public class StatusFragment extends Fragment {
      * Called when recording the next match's data
      */
     private void recordNewMatch() {
-        incrementMatchCounter();
         launchRecordDataFragment();
+        incrementMatchCounter();
     }
 
     private void incrementMatchCounter() {
@@ -123,7 +123,7 @@ public class StatusFragment extends Fragment {
 
     private void launchRecordDataFragment() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        RecordDataFragment fragment = RecordDataFragment.newInstance();
+        RecordDataFragment fragment = RecordDataFragment.newInstance(matchCounter);
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
     }
@@ -140,7 +140,7 @@ public class StatusFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences(STATUS_FRAGMENT_PREF, MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(Constants.APP_SHARED_PREF, Constants.MODE_PRIVATE).edit();
         editor.putInt(MATCH_NUMBER, matchCounter);
         editor.putString(TOURNAMENT_NAME, mTournament.getName());
         editor.commit();

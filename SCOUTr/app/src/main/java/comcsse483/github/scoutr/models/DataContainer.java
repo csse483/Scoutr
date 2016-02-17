@@ -9,12 +9,13 @@ import comcsse483.github.scoutr.Constants;
  */
 public class DataContainer {
     private int mTeamId;
+    private int mMatchNumber;
+
     private int autoLowGoalAttempted;
     private int autoLowGoalScored;
     private int lowGoalAttempted;
     private int lowGoalScored;
 
-    //TODO: add high goal
     private int autoHighGoalAttempted;
     private int autoHighGoalScored;
     private int highGoalAttempted;
@@ -56,44 +57,56 @@ public class DataContainer {
     public boolean setData(String dataName, Object data) {
         //This is sooooooooooo ugly
         if (dataName.equals(Constants.DATA_NAMES[0])) {
-            setAutoLowGoalAttempted((int) data);
+            setmTeamId((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[1])) {
-            setAutoLowGoalScored((int) data);
+            setMatchNumber((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[2])) {
-            setLowGoalAttempted((int) data);
+            setAutoLowGoalAttempted((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[3])) {
-            setLowGoalScored((int) data);
+            setAutoLowGoalScored((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[4])) {
-            setAutoHighGoalAttempted((int) data);
+            setLowGoalAttempted((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[5])) {
-            setAutoHighGoalScored((int) data);
+            setLowGoalScored((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[6])) {
-            setHighGoalAttempted((int) data);
+            setAutoHighGoalAttempted((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[7])) {
-            setHighGoalScored((int) data);
+            setAutoHighGoalScored((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[8])) {
-            setCrossedA1((int) data);
+            setHighGoalAttempted((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[9])) {
-            setCrossedA2((int) data);
+            setHighGoalScored((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[10])) {
-            setCrossedB1((int) data);
+            setCrossedA1((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[11])) {
-            setCrossedB2((int) data);
+            setCrossedA2((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[12])) {
-            setCrossedC1((int) data);
+            setCrossedB1((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[13])) {
-            setCrossedC2((int) data);
+            setCrossedB2((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[14])) {
-            setCrossedD1((int) data);
+            setCrossedC1((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[15])) {
-            setCrossedD2((int) data);
+            setCrossedC2((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[16])) {
-            setTowerChallenged((Boolean) data);
+            setCrossedD1((int) data);
         } else if (dataName.equals(Constants.DATA_NAMES[17])) {
+            setCrossedD2((int) data);
+        } else if (dataName.equals(Constants.DATA_NAMES[18])) {
+            setTowerChallenged((Boolean) data);
+        } else if (dataName.equals(Constants.DATA_NAMES[19])) {
             setTowerScaled((Boolean) data);
         }
 
         return false;
+    }
+
+    public int getMatchNumber() {
+        return mMatchNumber;
+    }
+
+    public void setMatchNumber(int mMatchNumber) {
+        this.mMatchNumber = mMatchNumber;
     }
 
     public int getAutoLowGoalAttempted() {

@@ -1,5 +1,6 @@
 package comcsse483.github.scoutr.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import comcsse483.github.scoutr.Constants;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.adapters.SetUpTournamentAdapter;
 
@@ -32,12 +33,11 @@ public class SetUpNewTournamentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        if (getArguments() != null) {
-//            String message = getArguments().getString(MESSAGE);
-//            if (!message.equals("")) {
-//                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-//            }
-//        }
+        //Clear all shared preferences
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(Constants.APP_SHARED_PREF, Constants.MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
+
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_set_up_new_tournament, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
         SetUpTournamentAdapter adapter = new SetUpTournamentAdapter(getActivity(), getFragmentManager());
