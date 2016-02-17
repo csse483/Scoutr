@@ -114,12 +114,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
 
                         getMatchList(localTournament);
                     }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cancel();
-                    }
-                }).setTitle(getString(R.string.select_team_fragment_title));
+                }).setNegativeButton(R.string.cancel, null).setTitle(getString(R.string.select_team_fragment_title));
 
                 return builder.create();
             }
@@ -141,13 +136,6 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         //launchRecordData(localTournament);
     }
 
-
-    private void cancel() {
-//        FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
-//        SetUpNewTournamentFragment fragment = new SetUpNewTournamentFragment();
-//        ft.replace(R.id.fragment_container, fragment);
-//        ft.commit();
-    }
 
     private void okay(Tournament tournament) {
         //Set the tournament

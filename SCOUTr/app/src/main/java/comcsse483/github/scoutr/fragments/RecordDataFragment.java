@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import comcsse483.github.scoutr.Constants;
 import comcsse483.github.scoutr.DBHelper;
 import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
@@ -25,7 +26,6 @@ import comcsse483.github.scoutr.models.Tournament;
  * A fragment that has a recycler view where match data is inputted and recorded.
  */
 public class RecordDataFragment extends Fragment implements View.OnClickListener {
-    private static final String MATCH_NUMBER = "MATCH_NUMBER";
     private RecordDataAdapter mAdapter;
     private int mTeamNumber;
     private int mMatchNumber;
@@ -39,7 +39,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     public static RecordDataFragment newInstance(int matchNumber) {
         RecordDataFragment fragment = new RecordDataFragment();
         Bundle args = new Bundle();
-        args.putInt(MATCH_NUMBER, matchNumber);
+        args.putInt(Constants.MATCH_NUMBER, matchNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +48,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMatchNumber = getArguments().getInt(MATCH_NUMBER);
+            mMatchNumber = getArguments().getInt(Constants.MATCH_NUMBER);
         }
 
         //TODO: Set Team ID for data container

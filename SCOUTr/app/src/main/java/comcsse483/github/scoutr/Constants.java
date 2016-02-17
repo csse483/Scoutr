@@ -4,7 +4,13 @@ package comcsse483.github.scoutr;
  * A container for all the constants used in the app.
  */
 public class Constants {
+    //Shared Preferences
     public final static String APP_SHARED_PREF = "APP_SHARED_PREF";
+    public static final String MATCH_NUMBER = "MATCH_NUMBER";
+    public static final String TOURNAMENT = "TOURNAMENT";
+    public static final String POSITION = "POSITION";
+    public static final String EVENT_CODE = "EVENT_CODE";
+
     public final static int MODE_PRIVATE = 0;
     public final static String TAG = "SCOUTr";
     public final static String API_ID = "frc5188:scouting_app:v0.1";

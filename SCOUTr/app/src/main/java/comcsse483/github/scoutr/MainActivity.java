@@ -2,6 +2,7 @@ package comcsse483.github.scoutr;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.nfc.NdefMessage;
@@ -37,7 +38,6 @@ import comcsse483.github.scoutr.models.Tournament;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener {
-    private static final String TOURNAMENT = "TOURNAMENT";
     private Fragment mCurrentFragment;
 
     private Tournament mTournament;
@@ -54,13 +54,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDBHelper = new DBHelper(this);
 
-        //Populate mMatches from the database
-        ArrayList<Match> matchList = getMatchListFromDataBase();
-        if (matchList.size() != 0) {
-            mMatches = matchList;
-        }
+        mDBHelper = new DBHelper(this);
+        loadPersistantData();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -72,14 +68,24 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        if (savedInstanceState == null) {
-            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            mCurrentFragment = new SetUpNewTournamentFragment();
-            ft.replace(R.id.fragment_container, mCurrentFragment);
-            ft.commit();
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (!mTournament.getName().equals("")) {
+            mCurrentFragment = new StatusFragment();
         } else {
-            //load shared preferences and get the previous tournament
+            //Overwrites the empty tournament object
+            mCurrentFragment = new SetUpNewTournamentFragment();
         }
+        ft.replace(R.id.fragment_container, mCurrentFragment);
+        ft.commit();
+    }
+
+    private void loadPersistantData(){
+        //Populate mMatches from the database
+        ArrayList<Match> matchList = getMatchListFromDataBase();
+        if (matchList.size() != 0) {
+            mMatches = matchList;
+        }
+        mTournament = createTournamentFromSharedPreferences();
     }
 
     @Override
@@ -157,6 +163,24 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor editor = getSharedPreferences(Constants.APP_SHARED_PREF, Constants.MODE_PRIVATE).edit();
+        editor.putString(Constants.TOURNAMENT, mTournament.getName());
+        editor.putString(Constants.POSITION, mTournament.getTeamPositionString());
+        editor.putString(Constants.EVENT_CODE, mTournament.getmEventCode());
+        editor.commit();
+
+    }
+
+    private Tournament createTournamentFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.APP_SHARED_PREF, Constants.MODE_PRIVATE);
+        String name = sharedPreferences.getString(Constants.TOURNAMENT, "");
+        String position = sharedPreferences.getString(Constants.POSITION, "");
+        String eventCode = sharedPreferences.getString(Constants.EVENT_CODE, "");
+        return new Tournament(name, eventCode, position);
+    }
 
     @Override
     public void switchToDetailFragment(Match match) {

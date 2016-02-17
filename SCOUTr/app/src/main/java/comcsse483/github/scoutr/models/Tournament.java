@@ -3,22 +3,33 @@ package comcsse483.github.scoutr.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import comcsse483.github.scoutr.Constants;
+
 /**
  * A model for a tournament.
  */
 public class Tournament implements Parcelable {
     private String mName;
-
-    public String getmEventCode() {
-        return mEventCode;
-    }
-
     private String mEventCode;
     private TeamPosition mTeamPosition;
+
+    //Teams
+    private static final String blueOne = "Blue 1";
+    private static final String blueTwo = "Blue 2";
+    private static final String blueThree = "Blue 3";
+    private static final String redOne = "Red 1";
+    private static final String redTwo = "Red 2";
+    private static final String redThree = "Red 3";
 
     public Tournament(String name, String eventCode) {
         mName = name;
         mEventCode = eventCode;
+    }
+
+    public Tournament(String name, String eventCode, String position){
+        mName = name;
+        mEventCode = eventCode;
+        setTeamPosition(position);
 
     }
 
@@ -37,6 +48,22 @@ public class Tournament implements Parcelable {
             return new Tournament[size];
         }
     };
+
+    public void setTeamPosition(String str){
+        if(str.equals(blueOne)){
+            setTeamPosition(0);
+        }else if(str.equals(blueTwo)){
+            setTeamPosition(1);
+        }else if(str.equals(blueThree)){
+            setTeamPosition(2);
+        }else if(str.equals(redOne)){
+            setTeamPosition(3);
+        }else if(str.equals(redTwo)){
+            setTeamPosition(4);
+        }else if(str.equals(redThree)){
+            setTeamPosition(5);
+        }
+    }
 
     public void setTeamPosition(int i) {
         switch (i) {
@@ -69,22 +96,22 @@ public class Tournament implements Parcelable {
         String pos = "";
         switch (mTeamPosition) {
             case BLUE1:
-                pos = "Blue 1";
+                pos = blueOne;
                 break;
             case BLUE2:
-                pos = "Blue 2";
+                pos = blueTwo;
                 break;
             case BLUE3:
-                pos = "Blue 3";
+                pos = blueThree;
                 break;
             case RED1:
-                pos = "Red 1";
+                pos = redOne;
                 break;
             case RED2:
-                pos = "Red 2";
+                pos = redTwo;
                 break;
             case RED3:
-                pos = "Red 3";
+                pos = redThree;
                 break;
         }
 
@@ -108,6 +135,10 @@ public class Tournament implements Parcelable {
 
     public String getName() {
         return mName;
+    }
+
+    public String getmEventCode() {
+        return mEventCode;
     }
 
     @Override
