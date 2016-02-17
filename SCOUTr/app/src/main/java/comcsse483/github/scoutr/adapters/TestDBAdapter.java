@@ -29,11 +29,11 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
         //Pull data from database and add to arrayList
         DBHelper mDBHelper = ((MainActivity) context).mDBHelper;
         for (DataContainer i : Utils.generateSampleScoutingData()) {
-            mDBHelper.insertData(i);
+            mDBHelper.insertDataContainer(i);
         }
 
         SQLiteDatabase mDB = mDBHelper.getReadableDatabase();
-        Cursor mCursor = mDB.query(mDBHelper.TABLE_NAME, null, null, null, null, null, null);
+        Cursor mCursor = mDB.query(mDBHelper.TABLE_NAME_DATA_CONTAINER, null, null, null, null, null, null);
 
         for (int i = 0; i < mCursor.getCount(); i++) {
             mCursor.moveToPosition(i);

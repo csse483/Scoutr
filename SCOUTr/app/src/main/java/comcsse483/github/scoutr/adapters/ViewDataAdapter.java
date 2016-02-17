@@ -18,7 +18,7 @@ import comcsse483.github.scoutr.models.Match;
 import comcsse483.github.scoutr.models.Team;
 
 /**
- * Recycler view adapter for the View Data fragment. Displays a list of all matches and their results. Pulls match information from the database.
+ * Recycler view adapter for the View Data fragment. Displays a list of all mMatches and their results. Pulls match information from the database.
  */
 public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHolder> {
 
@@ -26,7 +26,7 @@ public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHo
     private ViewDataFragment.OnFragmentInteractionListener mListener;
 
     public ViewDataAdapter(ViewDataFragment.OnFragmentInteractionListener listener) {
-        //TODO: Populate Arraylist of matches
+        //TODO: Populate Arraylist of mMatches
         matches = Utils.generateSampleTeamList();
         mListener = listener;
         Log.d(Constants.TAG, "Match list adapter created");
@@ -41,21 +41,21 @@ public class ViewDataAdapter extends RecyclerView.Adapter<ViewDataAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewDataAdapter.ViewHolder holder, int position) {
         final Match match = getMatch(position);
-        holder.mMatchNumberView.setText("Match\n" + match.getNumber());
-        holder.mBlue1.setText(match.getmBlueTeamList().get(0).getTeamNumber() + "");
-        holder.mBlue2.setText(match.getmBlueTeamList().get(1).getTeamNumber() + "");
-        holder.mBlue3.setText(match.getmBlueTeamList().get(2).getTeamNumber() + "");
-        holder.mRed1.setText(match.getmRedTeamList().get(0).getTeamNumber() + "");
-        holder.mRed2.setText(match.getmRedTeamList().get(1).getTeamNumber() + "");
-        holder.mRed3.setText(match.getmRedTeamList().get(2).getTeamNumber() + "");
-        holder.mBlueScore.setText(getAlliancePredictedScore(match.getmBlueTeamList()) + "");
-        holder.mRedScore.setText(getAlliancePredictedScore(match.getmRedTeamList()) + "");
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.switchToDetailFragment(match);
-            }
-        });
+//        holder.mMatchNumberView.setText("Match\n" + match.getNumber());
+//        holder.mBlue1.setText(match.getmBlueTeamList().get(0).getTeamNumber() + "");
+//        holder.mBlue2.setText(match.getmBlueTeamList().get(1).getTeamNumber() + "");
+//        holder.mBlue3.setText(match.getmBlueTeamList().get(2).getTeamNumber() + "");
+//        holder.mRed1.setText(match.getmRedTeamList().get(0).getTeamNumber() + "");
+//        holder.mRed2.setText(match.getmRedTeamList().get(1).getTeamNumber() + "");
+//        holder.mRed3.setText(match.getmRedTeamList().get(2).getTeamNumber() + "");
+//        holder.mBlueScore.setText(getAlliancePredictedScore(match.getmBlueTeamList()) + "");
+//        holder.mRedScore.setText(getAlliancePredictedScore(match.getmRedTeamList()) + "");
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mListener.switchToDetailFragment(match);
+//            }
+//        });
 
 
     }

@@ -1,6 +1,8 @@
 package comcsse483.github.scoutr;
 
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -16,10 +18,7 @@ import android.view.MenuItem;
 
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 
-
-import java.util.List;
-
-import comcsse483.github.scoutr.fragments.RecordDataFragment;
+import java.util.ArrayList;
 
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.StatusFragment;
@@ -31,22 +30,30 @@ import comcsse483.github.scoutr.models.Tournament;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener {
-
+    private static final String TOURNAMENT = "TOURNAMENT";
     private Fragment mCurrentFragment;
 
     private Tournament mTournament;
 
     public DBHelper mDBHelper;
-    public List<com.plnyyanks.tba.apiv2.models.Match> matches;
+    public ArrayList<Match> mMatches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Load The Blue Alliance API
         APIv2Helper.setAppId(Constants.API_ID);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mDBHelper = new DBHelper(this);
+
+        //Populate mMatches from the database
+        ArrayList<Match> matchList = getMatchListFromDataBase();
+        if(matchList.size() != 0){
+            mMatches = matchList;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,7 +70,7 @@ public class MainActivity extends AppCompatActivity
             mCurrentFragment = new SetUpNewTournamentFragment();
             ft.replace(R.id.fragment_container, mCurrentFragment);
             ft.commit();
-        }else{
+        } else {
             //load shared preferences and get the previous tournament
         }
     }
@@ -92,6 +99,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
+            //TODO: Add option to select a new tournament and wipe database
             case R.id.action_sync_data:
                 DialogFragment df = new SyncDataDialogFragment();
                 df.show(getSupportFragmentManager(), "");
@@ -115,14 +123,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_set_up_new_tournament:
                 switchTo = new SetUpNewTournamentFragment();
                 break;
-//            case R.id.nav_record_data:
-//                if (mCurrentFragment instanceof RecordDataFragment) {
-//                    //TODO: Find way of storing the current tournament
-//                    switchTo = RecordDataFragment.newInstance(getTournament());
-//                } else {
-//                    Toast.makeText(getApplicationContext(), getString(R.string.select_tournament), Toast.LENGTH_SHORT).show();
-//                }
-//                break;
             case R.id.nav_test_data:
                 switchTo = new TestDBFragment();
                 break;
@@ -159,22 +159,49 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
     }
 
-    public Tournament getTournament(){
+    private ArrayList<Match> getMatchListFromDataBase() {
+        SQLiteDatabase mDB = mDBHelper.getReadableDatabase();
+        Cursor mCursor = mDB.query(mDBHelper.TABLE_NAME_MATCH_LIST, null, null, null, null, null, null);
+        ArrayList<Match> matchList = new ArrayList<>();
+
+        for (int i = 0; i < mCursor.getCount(); i++) {
+            mCursor.moveToPosition(i);
+            int[] blueTeams = {mCursor.getInt(mCursor.getColumnIndex(DatabaseContract.MatchListEntry.COLUMN_NAME_BLUE_ONE)),
+                    mCursor.getInt(mCursor.getColumnIndex(DatabaseContract.MatchListEntry.COLUMN_NAME_BLUE_TWO)),
+                    mCursor.getInt(mCursor.getColumnIndex(DatabaseContract.MatchListEntry.COLUMN_NAME_BLUE_THREE))};
+
+            int[] redTeams = {mCursor.getInt(mCursor.getColumnIndex(DatabaseContract.MatchListEntry.COLUMN_NAME_RED_ONE)),
+                    mCursor.getInt(mCursor.getColumnIndex(DatabaseContract.MatchListEntry.COLUMN_NAME_RED_TWO)),
+                    mCursor.getInt(mCursor.getColumnIndex(DatabaseContract.MatchListEntry.COLUMN_NAME_RED_THREE))};
+
+            int matchId = mCursor.getInt(mCursor.getColumnIndex(DatabaseContract.MatchListEntry.COLUMN_NAME_MATCH_NUMBER));
+            Match match = new Match(matchId, blueTeams, redTeams);
+            matchList.add(match);
+        }
+        mCursor.close();
+
+        return matchList;
+    }
+
+    /*-------------------------------------- Getters and Setters ---------------------------------*/
+
+    public Tournament getTournament() {
         return mTournament;
     }
 
-    public void setTournament(Tournament tournament){
+    public void setTournament(Tournament tournament) {
         mTournament = tournament;
     }
 
-    public List<com.plnyyanks.tba.apiv2.models.Match> getMatches(){
-        return matches;
+    public ArrayList<Match> getMatches() {
+        return mMatches;
     }
 
-    public void setMatches(List<com.plnyyanks.tba.apiv2.models.Match> matches) {
-        this.matches = matches;
+    public void setMatches(ArrayList<Match> mMatches) {
+        this.mMatches = mMatches;
     }
-    public DBHelper getDBHelper(){
+
+    public DBHelper getDBHelper() {
 
         return mDBHelper;
     }

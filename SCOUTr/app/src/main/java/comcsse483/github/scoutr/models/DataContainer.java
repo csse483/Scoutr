@@ -3,7 +3,7 @@ package comcsse483.github.scoutr.models;
 import comcsse483.github.scoutr.Constants;
 
 /**
- * A container for data that will be collected during matches.
+ * A container for data that will be collected during mMatches.
  * Separated so that data fields can be customized on the fly.
  * Good OOP.
  */

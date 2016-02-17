@@ -11,15 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.plnyyanks.tba.apiv2.models.Match;
-
-import java.util.List;
+import java.util.ArrayList;
 
 import comcsse483.github.scoutr.DBHelper;
 import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.adapters.RecordDataAdapter;
 import comcsse483.github.scoutr.models.DataContainer;
+import comcsse483.github.scoutr.models.Match;
 import comcsse483.github.scoutr.models.Tournament;
 
 /**
@@ -82,33 +81,58 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         StringBuilder sb = new StringBuilder();
         sb.append("Match " + mMatchNumber + ": ");
         String pos = "";
-        List<Match> matches = ((MainActivity) getActivity()).getMatches();
-        for (Match i : matches) {
-            if (i.getComp_level().equals("qm") && i.getMatch_number() == mMatchNumber) {
-                //DONE: Grab team number from alliances JsonObject
+        ArrayList<Match> matches = ((MainActivity) getActivity()).getMatches();
+        for (Match match : matches) {
+            if (match.getMatchNumber() == mMatchNumber) {
                 switch (mTournament.getTeamPosition()) {
                     case BLUE1:
-                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
+                        pos = match.getBlue(0) + "";
                         break;
                     case BLUE2:
-                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
+                        pos = match.getBlue(1) + "";
                         break;
                     case BLUE3:
-                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
+                        pos = match.getBlue(2) + "";
                         break;
                     case RED1:
-                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
+                        pos = match.getRed(0) + "";
                         break;
                     case RED2:
-                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
+                        pos = match.getRed(1) + "";
                         break;
                     case RED3:
-                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
+                        pos = match.getRed(2) + "";
                         break;
                 }
             }
         }
-        mTeamNumber = Integer.parseInt(pos.substring(3));
+//        List<Match> mMatches = ((MainActivity) getActivity()).getmMatches();
+//        for (Match i : mMatches) {
+//            if (i.getComp_level().equals("qm") && i.getMatch_number() == mMatchNumber) {
+//                //DONE: Grab team number from alliances JsonObject
+//                switch (mTournament.getTeamPosition()) {
+//                    case BLUE1:
+//                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
+//                        break;
+//                    case BLUE2:
+//                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
+//                        break;
+//                    case BLUE3:
+//                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
+//                        break;
+//                    case RED1:
+//                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
+//                        break;
+//                    case RED2:
+//                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
+//                        break;
+//                    case RED3:
+//                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
+//                        break;
+//                }
+//            }
+//        }
+//        mTeamNumber = Integer.parseInt(pos.substring(3));
         sb.append(pos);
         return sb.toString();
 
@@ -139,7 +163,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         //DONE: Write the data container to the database
         MainActivity activity = (MainActivity) getActivity();
         DBHelper dbHelper = activity.getDBHelper();
-        dbHelper.insertData(exportData());
+        dbHelper.insertDataContainer(exportData());
         launchStatusFragment();
     }
 }

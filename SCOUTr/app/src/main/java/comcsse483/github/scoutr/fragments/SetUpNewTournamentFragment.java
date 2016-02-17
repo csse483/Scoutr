@@ -14,7 +14,7 @@ import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.adapters.SetUpTournamentAdapter;
 
 /**
- * A simple fragment class that has a recyclerview that displays upcoming matches,
+ * A simple fragment class that has a recyclerview that displays upcoming mMatches,
  * pulled from The Blue Alliance. Team positions are selected when a match is selected.
  */
 public class SetUpNewTournamentFragment extends Fragment {

@@ -1,20 +1,42 @@
 package comcsse483.github.scoutr.models;
 
 /**
- * Object that represents a team for the purposes of recording statistics during matches.
+ * Object that represents a team for the purposes of recording statistics during mMatches.
  */
 public class Team {
-    private int mTeamNumber;
-    private DataContainer mData;
+    private int mMatchNumber;
+
+    private int[] mBlueTeams;
+    private int[] mRedTeams;
 
     public Team(int teamNumber) {
-        mTeamNumber = teamNumber;
-        mData = new DataContainer();
+        mMatchNumber = teamNumber;
     }
 
-    //TODO: Figure out whether we need the Team model object
+    public Team(int teamNumber, int[] blueTeams, int[] redTeams) {
+        mMatchNumber = teamNumber;
+        mBlueTeams = blueTeams;
+        mRedTeams = redTeams;
+    }
 
     public int getTeamNumber() {
-        return mTeamNumber;
+        return mMatchNumber;
     }
+
+    public int[] getBlueTeams() {
+        return mBlueTeams;
+    }
+
+    public void setBlueTeams(int[] mBlueTeams) {
+        this.mBlueTeams = mBlueTeams;
+    }
+
+    public int[] getRedTeams() {
+        return mRedTeams;
+    }
+
+    public void setRedTeams(int[] mRedTeams) {
+        this.mRedTeams = mRedTeams;
+    }
+
 }

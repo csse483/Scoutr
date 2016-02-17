@@ -26,13 +26,11 @@ import java.util.List;
 import comcsse483.github.scoutr.Constants;
 import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
-import comcsse483.github.scoutr.fragments.RecordDataFragment;
-import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.StatusFragment;
 import comcsse483.github.scoutr.models.Tournament;
 
 /**
- * Adapter used by the Set Up Tournament to display upcoming matches, pulled from The Blue Alliance API.
+ * Adapter used by the Set Up Tournament to display upcoming mMatches, pulled from The Blue Alliance API.
  */
 public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournamentAdapter.ViewHolder> {
     private Activity mActivity;
@@ -136,6 +134,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
     }
+
     private void getMatchList(Tournament localTournament) {
         selectedTournament = localTournament;
         new GetMatchesTask().execute(localTournament.getmEventCode());
@@ -150,27 +149,47 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
 //        ft.commit();
     }
 
-    private void okay(Tournament tournament){
+    private void okay(Tournament tournament) {
         //Set the tournament
         ((MainActivity) mActivity).setTournament(tournament);
         launchStatusFragment();
     }
-    class GetMatchesTask extends AsyncTask<String, Void, List<Match>> {
+
+    class GetMatchesTask extends AsyncTask<String, Void, ArrayList<comcsse483.github.scoutr.models.Match>> {
         @Override
-        protected List<Match> doInBackground(String... params) {
+        protected ArrayList<comcsse483.github.scoutr.models.Match> doInBackground(String... params) {
             String eventID = params[0];
             APIv2 tbaAPI = APIv2Helper.getAPI();
-            List<Match> matches = tbaAPI.fetchEventMatches(eventID, null);
+            List<Match> matchList = tbaAPI.fetchEventMatches(eventID, null);
+            ArrayList<comcsse483.github.scoutr.models.Match> matches = new ArrayList<>();
+            for (Match match : matchList) {
+                int[] blueTeams = {getTeamId(match.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString()),
+                        getTeamId(match.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString()),
+                                getTeamId(match.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString())};
+
+                int[] redTeams = {getTeamId(match.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString()),
+                        getTeamId(match.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString()),
+                        getTeamId(match.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString())};
+
+                matches.add(new comcsse483.github.scoutr.models.Match(match.getMatch_number(), blueTeams, redTeams));
+            }
+            //Store Match Data in database
+            ((MainActivity) mActivity).mDBHelper.insertMatchList(matches);
             return matches;
         }
 
         @Override
-        protected void onPostExecute(List<Match> matches) {
+        protected void onPostExecute(ArrayList<comcsse483.github.scoutr.models.Match> matches) {
             super.onPostExecute(matches);
             ((MainActivity) mActivity).setMatches(matches);
             okay(selectedTournament);
         }
+
+        private int getTeamId(String str) {
+            return Integer.parseInt(str.substring(3));
+        }
     }
+
     class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
 
         @Override

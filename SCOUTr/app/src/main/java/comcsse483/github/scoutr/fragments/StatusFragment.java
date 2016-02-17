@@ -21,7 +21,7 @@ import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.models.Tournament;
 
 /**
- * Fragment that displays state information about the app, tournament, and matches. Serves as the main page of the app.
+ * Fragment that displays state information about the app, tournament, and mMatches. Serves as the main page of the app.
  */
 public class StatusFragment extends Fragment {
     private static String MATCH_NUMBER = "MATCH_NUMBER";

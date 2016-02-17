@@ -2,39 +2,31 @@ package comcsse483.github.scoutr.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 /**
  * Class that represents a match, and contains all relevant information
  * about a particular match and its teams.
  */
 public class Match implements Parcelable {
-    private ArrayList<Team> mBlueTeamList;
-    private ArrayList<Team> mRedTeamList;
-    private int[] blueTeamNumbers;
-    private int[] redTeamNumbers;
-    private int matchNumber;
+    private int mMatchNumber;
 
-    public Match(int matchNumber, int[] blueTeams, int[] redTeams){
-        mBlueTeamList = new ArrayList<>();
-        mRedTeamList = new ArrayList<>();
-        blueTeamNumbers = blueTeams;
-        redTeamNumbers = redTeams;
-        this.matchNumber = matchNumber;
+    private int[] mBlueTeams;
+    private int[] mRedTeams;
 
-        //Create Team objects and add to their respective lists
-        for(int i = 0; i < 3; i++){
-            mBlueTeamList.add(new Team(blueTeams[i]));
-            mRedTeamList.add(new Team(redTeams[i]));
-        }
+    public Match(int matchNumber) {
+        mMatchNumber = matchNumber;
+    }
+
+    public Match(int matchNumber, int[] blueTeams, int[] redTeams) {
+        mMatchNumber = matchNumber;
+        mBlueTeams = blueTeams;
+        mRedTeams = redTeams;
     }
 
     protected Match(Parcel in) {
-        blueTeamNumbers = in.createIntArray();
-        redTeamNumbers = in.createIntArray();
-        matchNumber = in.readInt();
+        mMatchNumber = in.readInt();
+        mBlueTeams = in.createIntArray();
+        mRedTeams = in.createIntArray();
     }
 
     public static final Creator<Match> CREATOR = new Creator<Match>() {
@@ -49,23 +41,32 @@ public class Match implements Parcelable {
         }
     };
 
-    /**
-     * TODO: Implement once database is set up.
-     */
-    public void onMatchFinished(){
-
+    public int getMatchNumber() {
+        return mMatchNumber;
     }
 
-    public ArrayList<Team> getmBlueTeamList() {
-        return mBlueTeamList;
+    public int getBlue(int i) {
+        return mBlueTeams[i];
     }
 
-    public ArrayList<Team> getmRedTeamList() {
-        return mRedTeamList;
+    public int getRed(int i) {
+        return mRedTeams[i];
     }
 
-    public int getNumber() {
-        return matchNumber;
+    public int[] getBlueTeams() {
+        return mBlueTeams;
+    }
+
+    public void setBlueTeams(int[] mBlueTeams) {
+        this.mBlueTeams = mBlueTeams;
+    }
+
+    public int[] getRedTeams() {
+        return mRedTeams;
+    }
+
+    public void setRedTeams(int[] mRedTeams) {
+        this.mRedTeams = mRedTeams;
     }
 
     @Override
@@ -75,8 +76,8 @@ public class Match implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(matchNumber);
-        dest.writeIntArray(blueTeamNumbers);
-        dest.writeIntArray(redTeamNumbers);
+        dest.writeInt(mMatchNumber);
+        dest.writeIntArray(mBlueTeams);
+        dest.writeIntArray(mRedTeams);
     }
 }
