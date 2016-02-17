@@ -29,12 +29,10 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
     private Match mMatch;
 
     public TestDBAdapter(Context context, Match match) {
+
+        mMatch = match;
         //Pull data from database and add to arrayList
         DBHelper mDBHelper = ((MainActivity) context).getDBHelper();
-        for (DataContainer i : Utils.generateSampleScoutingData()) {
-            mDBHelper.insertDataContainer(i);
-        }
-        mMatch = match;
         SQLiteDatabase mDB = mDBHelper.getReadableDatabase();
 
         int[] teamList = new int[mMatch.getBlueTeams().length + mMatch.getRedTeams().length];
@@ -44,11 +42,12 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
         for (int i : teamList) {
             Cursor mCursor = mDB.query(DBHelper.TABLE_NAME_DATA_CONTAINER, null, TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER + "=" + i, null, null, null, null);
             TestDataContainer newContainer = new TestDataContainer();
+            newContainer.setTeamNumber(i);
             int shotsAttempted = 0;
             int shotsMade = 0;
             int numCrossings = 0;
-            for (int j = 0; i < mCursor.getCount(); i++) {
-                mCursor.moveToPosition(i);
+            for (int j = 0; j < mCursor.getCount(); j++) {
+                mCursor.moveToPosition(j);
 
                 //Shot percentage
                 shotsAttempted += mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_ATTEMPTED)) +
@@ -72,7 +71,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
 
 
             }
-            newContainer.setShotPercetage((double) shotsAttempted / shotsMade);
+            newContainer.setShotPercetage((double) shotsMade / shotsAttempted);
             newContainer.setNumCrossings(numCrossings);
 
             mItemList.add(newContainer);
@@ -97,6 +96,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView teamNumberTextView   ;
         TextView shotPercentageTextView;
         TextView crossingsTextView;
         TextView towerScaledTextView;
@@ -110,6 +110,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
             crossingsTextView = (TextView) itemView.findViewById(R.id.defenses_crossed_text_view);
             towerScaledTextView = (TextView) itemView.findViewById(R.id.tower_scaled_text_view);
             towerChallengedTextView = (TextView) itemView.findViewById(R.id.tower_challenged_text_view);
+            teamNumberTextView = (TextView) itemView.findViewById(R.id.teamDetailTextView);
         }
 
         public void onBind(TestDataContainer testDataContainer) {
@@ -118,6 +119,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
             crossingsTextView.setText(Integer.toString(testDataContainer.getNumCrossings()));
             towerChallengedTextView.setText(Boolean.toString(testDataContainer.isTowerChallenged()));
             towerScaledTextView.setText(Boolean.toString(testDataContainer.isTowerScaled()));
+            teamNumberTextView.setText(testDataContainer.getTeamNumber() + "");
         }
     }
 }

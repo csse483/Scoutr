@@ -51,13 +51,16 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
             mMatchNumber = getArguments().getInt(Constants.MATCH_NUMBER);
         }
 
-        mAdapter = new RecordDataAdapter(getContext());
-
         //Set tournament
         MainActivity mainActivity = (MainActivity) getActivity();
         mTournament = mainActivity.getTournament();
 
         View view = inflater.inflate(R.layout.fragment_record_data, container, false);
+
+        TextView teamTextView = (TextView) view.findViewById(R.id.record_data_team_text_view);
+        teamTextView.setText(getTeamAndPositionString());
+
+        mAdapter = new RecordDataAdapter(getContext(), mMatchNumber, mTeamNumber);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.record_data_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -66,8 +69,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         Button recordDataButton = (Button) view.findViewById(R.id.record_data_button);
         recordDataButton.setOnClickListener(this);
 
-        TextView teamTextView = (TextView) view.findViewById(R.id.record_data_team_text_view);
-        teamTextView.setText(getTeamAndPositionString());
+
         return view;
     }
 

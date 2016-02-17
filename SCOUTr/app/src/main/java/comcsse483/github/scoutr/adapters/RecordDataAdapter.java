@@ -28,9 +28,13 @@ import comcsse483.github.scoutr.models.DataEntry;
 public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.ViewHolder> {
     private ArrayList<DataEntry> mItemList;
     private Context mContext;
+    private int mMatchNumber;
+    private int mTeamNumber;
 
-    public RecordDataAdapter(Context context) {
+    public RecordDataAdapter(Context context, int matchNumber, int teamNumber) {
         mContext = context;
+        this.mMatchNumber = matchNumber;
+        this.mTeamNumber = teamNumber;
         mItemList = new ArrayList<>();
         populateRecyclerViewWithDataEntryFields();
     }
@@ -74,7 +78,13 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
                 mItemList.add(new DataEntry(Constants.DATA_NAMES[pos], Integer.class));
             } else if (Constants.DATA_FIELDS[pos].equals("boolean")) {
                 mItemList.add(new DataEntry(Constants.DATA_NAMES[pos], Boolean.class));
+            }
 
+            if (pos == 0){
+                mItemList.get(0).setData(mTeamNumber);
+            }
+            else if (pos == 1) {
+                mItemList.get(1).setData(mMatchNumber);
             }
         }
     }

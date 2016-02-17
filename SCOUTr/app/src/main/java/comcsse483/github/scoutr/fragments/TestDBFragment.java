@@ -18,6 +18,7 @@ import comcsse483.github.scoutr.models.Match;
 public class TestDBFragment extends Fragment {
     private static final String MATCH = "MATCH";
     private TestDBAdapter mAdapter;
+    private Match mMatch;
 
     public static TestDBFragment newInstance(Match match){
         Bundle args = new Bundle();
@@ -30,22 +31,22 @@ public class TestDBFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Match match = null;
-        if(getArguments() != null){
-            match = getArguments().getParcelable(MATCH);
-        }
 
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_test_db, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
-        TestDBAdapter adapter = new TestDBAdapter(getActivity(), match);
+        TestDBAdapter adapter = new TestDBAdapter(getActivity(), mMatch);
+
         view.setAdapter(adapter);
         return view;
     }
-
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mMatch = (Match) getArguments().get(MATCH);
+        }
     }
+
 
 
 }
