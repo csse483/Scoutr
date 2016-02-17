@@ -138,8 +138,8 @@ public class StatusFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onPause() {
+        super.onPause();
         SharedPreferences.Editor editor = getActivity().getSharedPreferences(Constants.APP_SHARED_PREF, Constants.MODE_PRIVATE).edit();
         editor.putInt(MATCH_NUMBER, matchCounter);
         editor.putString(TOURNAMENT_NAME, mTournament.getName());

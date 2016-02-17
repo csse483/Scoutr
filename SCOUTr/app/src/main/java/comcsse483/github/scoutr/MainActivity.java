@@ -117,6 +117,12 @@ public class MainActivity extends AppCompatActivity
                 DialogFragment df = new SyncDataDialogFragment();
                 df.show(getSupportFragmentManager(), "");
                 break;
+            case R.id.action_set_up_new_tournament:
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                mCurrentFragment = new SetUpNewTournamentFragment();
+                ft.replace(R.id.fragment_container, mCurrentFragment);
+                ft.commit();
+                break;
         }
 
 
@@ -133,13 +139,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_status:
                 switchTo = StatusFragment.newInstance();
                 break;
-            case R.id.nav_set_up_new_tournament:
-                switchTo = new SetUpNewTournamentFragment();
-                break;
-//            case R.id.nav_test_data:
-//                switchTo = new TestDBFragment();
-//                break;
-            //TODO: Migrate test data view into view data fragment
             case R.id.nav_view_data:
                 switchTo = new ViewDataFragment();
                 break;
@@ -185,7 +184,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void switchToDetailFragment(Match match) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new TestDBFragment());
+        ft.replace(R.id.fragment_container, TestDBFragment.newInstance(match));
 //        ft.addToBackStack("detail");
         ft.commit();
     }

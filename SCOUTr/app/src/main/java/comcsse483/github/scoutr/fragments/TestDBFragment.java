@@ -30,10 +30,14 @@ public class TestDBFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Match match = null;
+        if(getArguments() != null){
+            match = getArguments().getParcelable(MATCH);
+        }
 
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_test_db, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
-        TestDBAdapter adapter = new TestDBAdapter(getActivity());
+        TestDBAdapter adapter = new TestDBAdapter(getActivity(), match);
         view.setAdapter(adapter);
         return view;
     }

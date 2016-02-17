@@ -28,13 +28,13 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
     private ArrayList<TestDataContainer> mItemList = new ArrayList<>();
     private Match mMatch;
 
-    public TestDBAdapter(Context context) {
+    public TestDBAdapter(Context context, Match match) {
         //Pull data from database and add to arrayList
         DBHelper mDBHelper = ((MainActivity) context).getDBHelper();
         for (DataContainer i : Utils.generateSampleScoutingData()) {
             mDBHelper.insertDataContainer(i);
         }
-
+        mMatch = match;
         SQLiteDatabase mDB = mDBHelper.getReadableDatabase();
 
         int[] teamList = new int[mMatch.getBlueTeams().length + mMatch.getRedTeams().length];
