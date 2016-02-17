@@ -156,12 +156,10 @@ public class MainActivity extends AppCompatActivity
         return null;
     }
 
-<<<<<<< .merge_file_a07428
     public void setMatches(List<com.plnyyanks.tba.apiv2.models.Match> matches) {
         this.matches = matches;
-=======
+    }
     public DBHelper getDBHelper(){
         return mDBHelper;
->>>>>>> .merge_file_a09984
     }
 }
