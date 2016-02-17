@@ -16,6 +16,11 @@ import android.view.MenuItem;
 
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 
+
+import java.util.List;
+
+import comcsse483.github.scoutr.fragments.RecordDataFragment;
+
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.fragments.StatusFragment;
 import comcsse483.github.scoutr.fragments.SyncDataDialogFragment;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private Tournament mTournament;
 
     public DBHelper mDBHelper;
+    public List<com.plnyyanks.tba.apiv2.models.Match> matches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +167,15 @@ public class MainActivity extends AppCompatActivity
         mTournament = tournament;
     }
 
-    public DBHelper getDBHelper() {
+    public List<com.plnyyanks.tba.apiv2.models.Match> getMatches(){
+        return matches;
+    }
+
+    public void setMatches(List<com.plnyyanks.tba.apiv2.models.Match> matches) {
+        this.matches = matches;
+    }
+    public DBHelper getDBHelper(){
+
         return mDBHelper;
     }
 }

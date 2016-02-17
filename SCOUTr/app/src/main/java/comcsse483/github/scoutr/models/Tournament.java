@@ -8,6 +8,11 @@ import android.os.Parcelable;
  */
 public class Tournament implements Parcelable {
     private String mName;
+
+    public String getmEventCode() {
+        return mEventCode;
+    }
+
     private String mEventCode;
     private TeamPosition mTeamPosition;
 

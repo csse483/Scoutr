@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.plnyyanks.tba.apiv2.APIv2Helper;
 import com.plnyyanks.tba.apiv2.interfaces.APIv2;
 import com.plnyyanks.tba.apiv2.models.Event;
+import com.plnyyanks.tba.apiv2.models.Match;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
     private Activity mActivity;
     private ArrayList<Tournament> mItemList;
     private FragmentManager mSupportFragmentManager;
+    private Tournament selectedTournament;
 
 
     public SetUpTournamentAdapter(Activity activity, FragmentManager man) {
@@ -111,7 +113,8 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
                 }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
-                        okay(localTournament);
+
+                        getMatchList(localTournament);
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -127,11 +130,18 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
     }
 
     private void launchStatusFragment() {
+
         FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
         StatusFragment fragment = StatusFragment.newInstance();
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
     }
+    private void getMatchList(Tournament localTournament) {
+        selectedTournament = localTournament;
+        new GetMatchesTask().execute(localTournament.getmEventCode());
+        //launchRecordData(localTournament);
+    }
+
 
     private void cancel() {
 //        FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
@@ -145,14 +155,29 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         ((MainActivity) mActivity).setTournament(tournament);
         launchStatusFragment();
     }
+    class GetMatchesTask extends AsyncTask<String, Void, List<Match>> {
+        @Override
+        protected List<Match> doInBackground(String... params) {
+            String eventID = params[0];
+            APIv2 tbaAPI = APIv2Helper.getAPI();
+            List<Match> matches = tbaAPI.fetchEventMatches(eventID, null);
+            return matches;
+        }
 
+        @Override
+        protected void onPostExecute(List<Match> matches) {
+            super.onPostExecute(matches);
+            ((MainActivity) mActivity).setMatches(matches);
+            okay(selectedTournament);
+        }
+    }
     class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
 
         @Override
         protected List<Event> doInBackground(Integer... params) {
             int year = params[0];
             APIv2 tbaAPI = APIv2Helper.getAPI();
-            List<Event> eventsInYear = tbaAPI.fetchEventsInYear(2016, null);
+            List<Event> eventsInYear = tbaAPI.fetchEventsInYear(Constants.YEAR, null);
             return eventsInYear;
         }
 
@@ -160,7 +185,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         protected void onPostExecute(List<Event> events) {
             super.onPostExecute(events);
             for (Event i : events) {
-                mItemList.add(new Tournament(i.getName(), i.getEvent_code()));
+                mItemList.add(new Tournament(i.getName(), i.getKey()));
             }
             notifyDataSetChanged();
         }

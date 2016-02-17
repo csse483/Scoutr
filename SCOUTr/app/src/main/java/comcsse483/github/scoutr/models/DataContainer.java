@@ -248,4 +248,12 @@ public class DataContainer {
                 + " " + crossedB2 + " " + crossedC1 + " " + crossedC2 + " " + crossedD1 + " " +
                 crossedD2 + " " + Boolean.toString(isTowerChallenged()) + " " + Boolean.toString(isTowerScaled());
     }
+
+    public int getmTeamId() {
+        return mTeamId;
+    }
+
+    public void setmTeamId(int mTeamId) {
+        this.mTeamId = mTeamId;
+    }
 }

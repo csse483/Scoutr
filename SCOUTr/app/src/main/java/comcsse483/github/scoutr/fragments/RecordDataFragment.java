@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.plnyyanks.tba.apiv2.models.Match;
+
+import java.util.List;
+
 import comcsse483.github.scoutr.DBHelper;
 import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
@@ -23,10 +27,9 @@ import comcsse483.github.scoutr.models.Tournament;
  */
 public class RecordDataFragment extends Fragment implements View.OnClickListener {
     private RecordDataAdapter mAdapter;
-
+    private int mTeamNumber;
 
     private Tournament mTournament;
-
 
     public RecordDataFragment() {
         // Required empty public constructor
@@ -60,7 +63,8 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
         recordDataButton.setOnClickListener(this);
 
         TextView teamTextView = (TextView) view.findViewById(R.id.record_data_team_text_view);
-        teamTextView.setText(getTeamAndPositionString());
+        //TODO: Change argument to incrementing match number
+        teamTextView.setText(getTeamAndPositionString(1));
         return view;
     }
 
@@ -69,30 +73,37 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private String getTeamAndPositionString() {
+    private String getTeamAndPositionString(int matchNumber) {
         StringBuilder sb = new StringBuilder();
-        sb.append(mTournament.getName() + ": ");
+        sb.append("Match " + matchNumber + ": ");
         String pos = "";
-        switch (mTournament.getTeamPosition()) {
-            case BLUE1:
-                pos = "Blue 1";
-                break;
-            case BLUE2:
-                pos = "Blue 2";
-                break;
-            case BLUE3:
-                pos = "Blue 3";
-                break;
-            case RED1:
-                pos = "Red 1";
-                break;
-            case RED2:
-                pos = "Red 2";
-                break;
-            case RED3:
-                pos = "Red 3";
-                break;
+        List<Match> matches = ((MainActivity) getActivity()).getMatches();
+        for (Match i : matches) {
+            if (i.getComp_level().equals("qm") && i.getMatch_number() == matchNumber) {
+                //DONE: Grab team number from alliances JsonObject
+                switch (mTournament.getTeamPosition()) {
+                    case BLUE1:
+                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
+                        break;
+                    case BLUE2:
+                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
+                        break;
+                    case BLUE3:
+                        pos = i.getAlliances().get("blue").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
+                        break;
+                    case RED1:
+                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString();
+                        break;
+                    case RED2:
+                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString();
+                        break;
+                    case RED3:
+                        pos = i.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString();
+                        break;
+                }
+            }
         }
+        mTeamNumber = Integer.parseInt(pos.substring(3));
         sb.append(pos);
         return sb.toString();
 
@@ -106,6 +117,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     public DataContainer exportData() {
         DataContainer dataContainer = new DataContainer();
         dataContainer = mAdapter.recordData(dataContainer);
+        dataContainer.setmTeamId(mTeamNumber);
         return dataContainer;
     }
 
@@ -119,7 +131,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        //TODO: Write the data container to the database
+        //DONE: Write the data container to the database
         MainActivity activity = (MainActivity) getActivity();
         DBHelper dbHelper = activity.getDBHelper();
         dbHelper.insertData(exportData());
