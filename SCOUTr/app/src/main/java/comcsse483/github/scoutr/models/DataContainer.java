@@ -14,6 +14,7 @@ public class DataContainer {
     private int lowGoalAttempted;
     private int lowGoalScored;
 
+    //TODO: add high goal
     private int autoHighGoalAttempted;
     private int autoHighGoalScored;
     private int highGoalAttempted;

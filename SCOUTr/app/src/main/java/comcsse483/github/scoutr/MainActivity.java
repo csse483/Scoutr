@@ -152,4 +152,8 @@ public class MainActivity extends AppCompatActivity
         //TODO: Fix temporary storage of current tournament object
         return null;
     }
+
+    public DBHelper getDBHelper(){
+        return mDBHelper;
+    }
 }
