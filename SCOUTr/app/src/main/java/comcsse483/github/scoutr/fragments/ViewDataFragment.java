@@ -28,7 +28,7 @@ public class ViewDataFragment extends Fragment {
                              Bundle savedInstanceState) {
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_view_match_list, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new ViewDataAdapter(mListener);
+        mAdapter = new ViewDataAdapter(mListener, getActivity());
         view.setAdapter(mAdapter);
         return view;
     }

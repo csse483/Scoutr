@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity
 
     private Tournament mTournament;
 
-    public DBHelper mDBHelper;
-    public ArrayList<Match> mMatches;
+    private DBHelper mDBHelper;
+    private ArrayList<Match> mMatches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +134,9 @@ public class MainActivity extends AppCompatActivity
                 switchTo = new TestDBFragment();
                 break;
             //TODO: Migrate test data view into view data fragment
-//            case R.id.nav_view_data:
-//                switchTo = new ViewDataFragment();
-//                break;
+            case R.id.nav_view_data:
+                switchTo = new ViewDataFragment();
+                break;
         }
 
         if (switchTo != null) {
