@@ -4,6 +4,16 @@ package comcsse483.github.scoutr.models;
  * A test data container used during database testing.
  */
 public class TestDataContainer {
+    private int teamNumber;
+
+    public int getTeamNumber() {
+        return teamNumber;
+    }
+
+    public void setTeamNumber(int teamNumber) {
+        this.teamNumber = teamNumber;
+    }
+
     private double shotPercetage;
     private int numCrossings;
     private boolean towerScaled;

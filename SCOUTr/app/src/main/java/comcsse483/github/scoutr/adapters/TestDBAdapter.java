@@ -41,6 +41,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
         for (int i : teamList) {
             Cursor mCursor = mDB.query(DBHelper.TABLE_NAME_DATA_CONTAINER, null, TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER + "=" + i, null, null, null, null);
             TestDataContainer newContainer = new TestDataContainer();
+            newContainer.setTeamNumber(i);
             int shotsAttempted = 0;
             int shotsMade = 0;
             int numCrossings = 0;
@@ -94,6 +95,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView teamNumberTextView   ;
         TextView shotPercentageTextView;
         TextView crossingsTextView;
         TextView towerScaledTextView;
@@ -107,6 +109,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
             crossingsTextView = (TextView) itemView.findViewById(R.id.defenses_crossed_text_view);
             towerScaledTextView = (TextView) itemView.findViewById(R.id.tower_scaled_text_view);
             towerChallengedTextView = (TextView) itemView.findViewById(R.id.tower_challenged_text_view);
+            teamNumberTextView = (TextView) itemView.findViewById(R.id.teamDetailTextView);
         }
 
         public void onBind(TestDataContainer testDataContainer) {
@@ -115,6 +118,7 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
             crossingsTextView.setText(Integer.toString(testDataContainer.getNumCrossings()));
             towerChallengedTextView.setText(Boolean.toString(testDataContainer.isTowerChallenged()));
             towerScaledTextView.setText(Boolean.toString(testDataContainer.isTowerScaled()));
+            teamNumberTextView.setText(testDataContainer.getTeamNumber() + "");
         }
     }
 }

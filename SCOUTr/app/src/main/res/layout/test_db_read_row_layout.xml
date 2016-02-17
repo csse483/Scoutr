@@ -5,13 +5,26 @@
     android:layout_height="match_parent"
     android:layout_margin="4dp"
     card_view:cardCornerRadius="8dp">
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <TableRow
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/teamDetailTextView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/tableLayout"
+    android:layout_marginTop="25dp">
 
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,4 +107,5 @@
             android:layout_margin="5dp" />
     </TableRow>
 </TableLayout>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>
