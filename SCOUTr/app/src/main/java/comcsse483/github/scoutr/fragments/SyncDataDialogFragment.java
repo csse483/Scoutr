@@ -45,7 +45,7 @@ public class SyncDataDialogFragment extends DialogFragment {
                         break;
                     case (R.id.nfcSyncButton):
                         nfcAdapter.setNdefPushMessage(createNdefMessage(),getActivity());
-                        Toast.makeText(getContext(), "Syncing via NFC has not been implemented yet. Select another option.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "Syncing via NFC has not been implemented yet. Select another option.", Toast.LENGTH_SHORT).show();
                         break;
                     case (R.id.wifiSyncButton):
                         //TODO: Sync over internet
@@ -61,9 +61,9 @@ public class SyncDataDialogFragment extends DialogFragment {
     }
 
     private NdefMessage createNdefMessage() {
-        NdefRecord[] records = new NdefRecord[]{};
         DBHelper db = ((MainActivity) getActivity()).getDBHelper();
         String[] data = db.getDataToSync();
+        NdefRecord[] records = new NdefRecord[data.length];
         for (int i = 0; i < data.length; i++) {
             records[i] = NdefRecord.createMime("application/comcsse483.github.scoutr", data[i].getBytes());
         }

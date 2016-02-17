@@ -53,9 +53,8 @@ public final class DatabaseContract {
 
         public static String[] getListOfColumns() {
             return new String[] {
-
-                    COLUMN_NAME_MATCH_NUMBER,
                     COLUMN_NAME_TEAM_NUMBER,
+                    COLUMN_NAME_MATCH_NUMBER,
 
                     COLUMN_NAME_AUTO_LOW_ATTEMPTED,
                     COLUMN_NAME_AUTO_LOW_SCORED,

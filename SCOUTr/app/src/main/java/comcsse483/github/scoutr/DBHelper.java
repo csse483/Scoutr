@@ -90,9 +90,13 @@ public class DBHelper extends SQLiteOpenHelper {
             String rowString = "";
             for (String column : TeamMatchEntry.getListOfColumns()) {
                 rowString = rowString + cursor.getInt(cursor.getColumnIndex(column)) + " ";
+
             }
             output[row] = rowString;
         }
+        cursor.close();
+        db.close();
+        Log.d("NFC", output[1]);
         return output;
     }
 
@@ -100,6 +104,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER, data.getmTeamId());
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_MATCH_NUMBER, data.getMatchNumber());
 
         contentValues.put(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_ATTEMPTED, data.getAutoLowGoalAttempted());
         contentValues.put(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_SCORED, data.getAutoLowGoalScored());
@@ -129,7 +136,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         Log.d(Constants.TAG, "Wrote the following to db: " + data.toString());
         return isSuccessful;
-
     }
 
     public boolean insertMatchList(ArrayList<Match> list) {
