@@ -10,18 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import comcsse483.github.scoutr.R;
-import comcsse483.github.scoutr.adapters.MatchListAdapter;
+import comcsse483.github.scoutr.adapters.ViewDataAdapter;
 import comcsse483.github.scoutr.models.Match;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ViewDataFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
+ * A simple fragment that displays match information pulled from the database.
  */
 public class ViewDataFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
-    private MatchListAdapter mAdapter;
+    private ViewDataAdapter mAdapter;
 
     public ViewDataFragment() {
     }
@@ -31,7 +28,7 @@ public class ViewDataFragment extends Fragment {
                              Bundle savedInstanceState) {
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_view_match_list, container, false);
         view.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new MatchListAdapter(mListener);
+        mAdapter = new ViewDataAdapter(mListener);
         view.setAdapter(mAdapter);
         return view;
     }

@@ -8,7 +8,7 @@ import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.Match;
 
 /**
- * Created by yarlagrt on 1/25/2016.
+ * A utility class for the app.
  */
 public class Utils {
 

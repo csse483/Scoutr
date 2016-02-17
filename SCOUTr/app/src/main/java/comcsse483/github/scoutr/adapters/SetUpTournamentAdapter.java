@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comcsse483.github.scoutr.R;
+import comcsse483.github.scoutr.fragments.RecordDataFragment;
+import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
 import comcsse483.github.scoutr.models.Tournament;
 
 /**
@@ -29,23 +33,18 @@ import comcsse483.github.scoutr.models.Tournament;
 public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournamentAdapter.ViewHolder> {
     private Activity mActivity;
     private ArrayList<Tournament> mItemList;
-    private int mSelectedPosition;
+    private FragmentManager mSupportFragmentManager;
 
 
-
-    public SetUpTournamentAdapter(Activity activity){
+    public SetUpTournamentAdapter(Activity activity, FragmentManager man) {
         mActivity = activity;
         mItemList = new ArrayList<>();
+        mSupportFragmentManager = man;
 
         //Grab tournament list using TBA API
         new GetEventsTask().execute(2016);
 
     }
-
-//    private void test(){
-//        for(int i = 1; i < 11; i++)
-//            mItemList.add(new Tournament("Tournament: " + i));
-//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -63,7 +62,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         return mItemList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mItemTitle;
         Tournament mTournament;
 
@@ -79,7 +78,7 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
             onTournamentSelected(mTournament);
         }
 
-        public void onBind(Tournament tournament){
+        public void onBind(Tournament tournament) {
             mTournament = tournament;
             mItemTitle.setText(mTournament.getName());
         }
@@ -87,20 +86,36 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
 
     }
 
-    private void onTournamentSelected(final Tournament tournament){
+    /**
+     * Single choice dialog to choose which team data is to be recorded.
+     *
+     * @param tournament
+     */
+    private void onTournamentSelected(Tournament tournament) {
+        final Tournament localTournament = tournament;
+        tournament.setTeamPosition(0);
         DialogFragment df = new DialogFragment() {
             @Override
             public Dialog onCreateDialog(Bundle b) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                builder.setSingleChoiceItems(R.array.team_array, 0, null).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(R.array.team_array, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        localTournament.setTeamPosition(which);
+                    }
+                }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
-                        tournament.setTeamPosition(position);
-                        launchRecordData(tournament);
+                        launchRecordData(localTournament);
                     }
-                }).setNegativeButton(R.string.cancel, null).setTitle(getString(R.string.select_team_fragment_title));
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cancel();
+                    }
+                }).setTitle(getString(R.string.select_team_fragment_title));
 
                 return builder.create();
             }
@@ -108,18 +123,20 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
         df.show(mActivity.getFragmentManager(), mActivity.getString(R.string.select_team_fragment_title));
     }
 
-    private void launchRecordData(Tournament tournament){
-//        FragmentManager fragmentManager = mActivity.getFragmentManager();
-//        FragmentTransaction ft = fragmentManager.beginTransaction();
-//        ft.add(R.id.fragment_container, RecordDataFragment.newInstance(), null);
-//        ft.commit();
-
-
-//        Intent recordDataIntent = new Intent(mActivity.getApplicationContext(), RecordDataFragment.class);
-//        recordDataIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        recordDataIntent.putExtra(Constants.KEY_TOURNAMENT, tournament);
-//        mActivity.startActivity(recordDataIntent);
+    private void launchRecordData(Tournament tournament) {
+        FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
+        RecordDataFragment fragment = RecordDataFragment.newInstance(tournament);
+        ft.replace(R.id.fragment_container, fragment);
+        ft.commit();
     }
+
+    private void cancel() {
+        FragmentTransaction ft = mSupportFragmentManager.beginTransaction();
+        SetUpNewTournamentFragment fragment = new SetUpNewTournamentFragment();
+        ft.replace(R.id.fragment_container, fragment);
+        ft.commit();
+    }
+
 
     class GetEventsTask extends AsyncTask<Integer, Void, List<Event>> {
 

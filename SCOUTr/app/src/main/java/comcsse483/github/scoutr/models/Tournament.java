@@ -3,12 +3,8 @@ package comcsse483.github.scoutr.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.squareup.okhttp.OkHttpClient;
-
-import comcsse483.github.scoutr.TeamPosition;
-
 /**
- * Created by schmitml on 1/23/16.
+ * A model for a tournament.
  */
 public class Tournament implements Parcelable{
     private String mName;
@@ -60,6 +56,9 @@ public class Tournament implements Parcelable{
         }
     }
 
+    public TeamPosition getTeamPosition(){
+        return mTeamPosition;
+    }
     public String getName(){
         return mName;
     }

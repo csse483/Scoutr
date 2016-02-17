@@ -20,7 +20,7 @@ import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.TestDataContainer;
 
 /**
- * Created by yarlagrt on 2/8/2016.
+ * Adapter used for testing pulling and displaying match result information from the database.
  */
 public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder> {
     private ArrayList<TestDataContainer> mItemList = new ArrayList<>();

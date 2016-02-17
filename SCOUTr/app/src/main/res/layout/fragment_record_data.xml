@@ -2,22 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100"
     android:orientation="vertical"
+    android:weightSum="100"
     tools:context="comcsse483.github.scoutr.fragments.RecordDataFragment">
 
+    <TextView
+        android:id="@+id/record_data_team_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
     <android.support.v7.widget.RecyclerView
+        android:paddingTop="5dp"
         android:id="@+id/record_data_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="90" />
+        android:layout_weight="80" />
 
     <Button
         android:id="@+id/record_data_button"
-        android:background="@color/red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
+        android:background="@color/red"
         android:text="@string/record_data_button" />
 
 </LinearLayout>

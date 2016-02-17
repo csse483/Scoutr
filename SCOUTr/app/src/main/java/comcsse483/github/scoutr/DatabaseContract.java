@@ -3,7 +3,7 @@ package comcsse483.github.scoutr;
 import android.provider.BaseColumns;
 
 /**
- * Created by yarlagrt on 2/1/2016.
+ * A class defining all the database constants.
  */
 public final class DatabaseContract {
 

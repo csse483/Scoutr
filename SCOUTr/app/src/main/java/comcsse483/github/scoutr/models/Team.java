@@ -12,6 +12,8 @@ public class Team {
         mData = new DataContainer();
     }
 
+    //TODO: Figure out whether we need the Team model object
+
     public int getTeamNumber() {
         return mTeamNumber;
     }

@@ -38,5 +38,6 @@
     <string name="field_three">Field Three</string>
     <string name="field_four">Field Four</string>
     <string name="record_data_button">Record Data</string>
+    <string name="select_new_tournament">Select a new tournament to record data</string>
 
 </resources>

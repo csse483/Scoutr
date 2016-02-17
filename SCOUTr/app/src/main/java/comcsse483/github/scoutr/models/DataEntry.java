@@ -1,23 +1,20 @@
 package comcsse483.github.scoutr.models;
 
-import java.util.Objects;
-
 /**
- * Created by schmitml on 1/26/16.
+ * A data entry model used to record data in the RecordDataFragment recycler view.
  */
 public class DataEntry {
     private String mName;
     private Object mData;
     private Class mType;
-    private Integer mInt;
-    private Boolean mBool;
+
 
     public DataEntry(String name, Class type) {
         this.mName = name;
         mType = type;
-        if(type.equals(Integer.class)){
+        if (type.equals(Integer.class)) {
             mData = 0;
-        }else if(type.equals(Boolean.class)){
+        } else if (type.equals(Boolean.class)) {
             mData = false;
         }
     }
@@ -49,7 +46,7 @@ public class DataEntry {
 
 
     @Override
-    public String toString(){
+    public String toString() {
         return mName + ": " + mData;
     }
 }

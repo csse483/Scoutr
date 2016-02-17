@@ -1,7 +1,7 @@
 package comcsse483.github.scoutr.models;
 
 /**
- * Created by yarlagrt on 2/8/2016.
+ * A test data container used during database testing.
  */
 public class TestDataContainer {
     private double shotPercetage;

@@ -27,26 +27,25 @@ import comcsse483.github.scoutr.models.DataEntry;
  */
 public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.ViewHolder> {
     private ArrayList<DataEntry> mItemList;
-    private DataContainer mDataContainer; //TODO: Check how RecordDataAdapters are recycled, as there might be an issue with how this dataContainer is set locally
     private Context mContext;
 
-    public RecordDataAdapter(Context context, DataContainer dataContainer) {
+    public RecordDataAdapter(Context context) {
         mContext = context;
-        mDataContainer = dataContainer;
         mItemList = new ArrayList<>();
         populateRecyclerViewWithDataEntryFields();
     }
 
-    public DataContainer recordData() {
+    public DataContainer recordData(DataContainer dataContainer) {
+        DataContainer localDataContainer = dataContainer;
         //Takes all of the values in the data entry containers and writes them to the data container
         for (int i = 0; i < mItemList.size(); i++) {
             DataEntry dataEntry = mItemList.get(i);
 
-            mDataContainer.setData(dataEntry.getName(), dataEntry.getData());
+            localDataContainer.setData(dataEntry.getName(), dataEntry.getData());
         }
 
         Log.e("SCOUTr", "Successfully captured data in form.");
-        return mDataContainer;
+        return localDataContainer;
     }
 
     @Override
@@ -106,14 +105,12 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
                 dataEntryEditText.setVisibility(View.VISIBLE);
                 dataEntryCheckBox.setVisibility(View.GONE);
 
-                //TODO: Test setting viewholder for text/numbers
                 dataEntryEditText.setText(String.valueOf(dataEntry.getData()));
 
             } else if (mDataEntry.getType().equals(Boolean.class)) {
                 dataEntryEditText.setVisibility(View.GONE);
                 dataEntryCheckBox.setVisibility(View.VISIBLE);
 
-                //TODO: Test setting viewholder for booleans
                 dataEntryCheckBox.setChecked((Boolean) dataEntry.getData());
             }
 
@@ -122,7 +119,6 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
 
         @Override
         public void afterTextChanged(Editable editable) {
-            //TODO: Test TextWatcher
             if (Utils.isNumber(editable.toString())) {
                 mDataEntry.setData(Integer.parseInt(editable.toString()));
             }

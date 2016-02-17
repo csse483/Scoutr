@@ -12,17 +12,10 @@ import comcsse483.github.scoutr.models.Match;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ViewDataDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple fragment that shows match information detail.
  */
 public class ViewDataDetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that mMatch
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String MATCH = "mMatch";
-
-
-    // TODO: Rename and change types of parameters
     private Match mMatch;
 
 
@@ -37,7 +30,6 @@ public class ViewDataDetailFragment extends Fragment {
      * @param matchToDisplay Parameter 1.
      * @return A new instance of fragment ViewDataDetailFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ViewDataDetailFragment newInstance(Match matchToDisplay) {
         ViewDataDetailFragment fragment = new ViewDataDetailFragment();
         Bundle args = new Bundle();

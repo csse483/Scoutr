@@ -18,10 +18,11 @@ import com.plnyyanks.tba.apiv2.APIv2Helper;
 
 import comcsse483.github.scoutr.fragments.RecordDataFragment;
 import comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment;
-import comcsse483.github.scoutr.fragments.SyncDataFragment;
+import comcsse483.github.scoutr.fragments.SyncDataDialogFragment;
 import comcsse483.github.scoutr.fragments.TestDBFragment;
 import comcsse483.github.scoutr.fragments.ViewDataFragment;
 import comcsse483.github.scoutr.models.Match;
+import comcsse483.github.scoutr.models.Tournament;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener {
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.action_sync_data:
-                DialogFragment df = new SyncDataFragment();
+                DialogFragment df = new SyncDataDialogFragment();
                 df.show(getSupportFragmentManager(), "");
                 break;
         }
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity
                 switchTo = new SetUpNewTournamentFragment();
                 break;
             case R.id.nav_record_data:
-                switchTo = new RecordDataFragment();
+                switchTo = RecordDataFragment.newInstance(getTournament());
                 break;
             case R.id.nav_test_data:
                 switchTo = new TestDBFragment();
@@ -135,5 +136,10 @@ public class MainActivity extends AppCompatActivity
         ft.replace(R.id.fragment_container, new ViewDataFragment());
         ft.addToBackStack("detail");
         ft.commit();
+    }
+
+    private Tournament getTournament() {
+
+        return null;
     }
 }

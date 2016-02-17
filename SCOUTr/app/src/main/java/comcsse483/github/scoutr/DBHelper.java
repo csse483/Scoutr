@@ -14,7 +14,7 @@ import comcsse483.github.scoutr.models.Tournament;
 import comcsse483.github.scoutr.DatabaseContract.TeamMatchEntry;
 
 /**
- * Created by yarlagrt on 2/1/2016.
+ * A helper class for the database.
  */
 public class DBHelper extends SQLiteOpenHelper {
 
