@@ -170,8 +170,9 @@ public class SetUpTournamentAdapter extends RecyclerView.Adapter<SetUpTournament
                 int[] redTeams = {getTeamId(match.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(0).getAsString()),
                         getTeamId(match.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(1).getAsString()),
                         getTeamId(match.getAlliances().get("red").getAsJsonObject().get("teams").getAsJsonArray().get(2).getAsString())};
-
-                matches.add(new comcsse483.github.scoutr.models.Match(match.getMatch_number(), blueTeams, redTeams));
+                if (match.getComp_level().equals("qm")) {
+                    matches.add(new comcsse483.github.scoutr.models.Match(match.getMatch_number(), blueTeams, redTeams));
+                }
             }
             //Store Match Data in database
             ((MainActivity) mActivity).mDBHelper.insertMatchList(matches);

@@ -132,7 +132,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
 //                }
 //            }
 //        }
-//        mTeamNumber = Integer.parseInt(pos.substring(3));
+        mTeamNumber = Integer.parseInt(pos);
         sb.append(pos);
         return sb.toString();
 
