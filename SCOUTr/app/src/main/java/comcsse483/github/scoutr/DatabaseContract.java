@@ -50,5 +50,7 @@ public final class DatabaseContract {
                     COLUMN_NAME_CROSSED_D2
             };
         }
+
+        public static String[] getListOfCulumns
     }
 }

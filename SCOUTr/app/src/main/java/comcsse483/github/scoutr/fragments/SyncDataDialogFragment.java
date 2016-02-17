@@ -3,18 +3,25 @@ package comcsse483.github.scoutr.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import comcsse483.github.scoutr.DBHelper;
+import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 
 /**
  * A simple dialog fragment that allows users to choose which method they sync with.
  */
-public class SyncDataDialogFragment extends DialogFragment {
+public class SyncDataDialogFragment extends DialogFragment  implements NfcAdapter.CreateNdefMessageCallback{
+
+    NfcAdapter mNFCAdapter;
 
     public SyncDataDialogFragment() {
         // Required empty public constructor
@@ -48,6 +55,18 @@ public class SyncDataDialogFragment extends DialogFragment {
             }
         });
         builder.setNegativeButton(android.R.string.cancel, null);
+
+
+
+        mNFCAdapter = NfcAdapter.getDefaultAdapter(getContext());
+        mNFCAdapter.setNdefPushMessageCallback(this, getActivity());
         return builder.create();
+    }
+
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent event) {
+
+        DBHelper db = ((MainActivity) getActivity()).getDBHelper();
+
     }
 }

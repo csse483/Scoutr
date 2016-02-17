@@ -2,6 +2,7 @@ package comcsse483.github.scoutr;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -31,32 +32,32 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
-                TeamMatchEntry._ID + " INTEGER PRIMARY KEY, " +
-                TeamMatchEntry.COLUMN_NAME_MATCH_NUMBER + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER + TYPE_INT +
+            TeamMatchEntry._ID + " INTEGER PRIMARY KEY, " +
+            TeamMatchEntry.COLUMN_NAME_MATCH_NUMBER + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER + TYPE_INT +
 
-                TeamMatchEntry.COLUMN_NAME_AUTO_LOW_ATTEMPTED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_AUTO_LOW_SCORED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_LOW_ATTEMPTED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_LOW_SCORED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_AUTO_LOW_ATTEMPTED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_AUTO_LOW_SCORED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_LOW_ATTEMPTED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_LOW_SCORED + TYPE_INT +
 
-                TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_ATTEMPTED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_SCORED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_HIGH_ATTEMPTED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_HIGH_SCORED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_ATTEMPTED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_SCORED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_HIGH_ATTEMPTED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_HIGH_SCORED + TYPE_INT +
 
-                TeamMatchEntry.COLUMN_NAME_CROSSED_A1 + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_CROSSED_A2 + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_CROSSED_B1 + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_CROSSED_B2 + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_CROSSED_C1 + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_CROSSED_C2 + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_CROSSED_D1 + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_CROSSED_D2 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_A1 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_A2 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_B1 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_B2 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_C1 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_C2 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_D1 + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_CROSSED_D2 + TYPE_INT +
 
-                TeamMatchEntry.COLUMN_NAME_TOWER_CHALLENGED + TYPE_INT +
-                TeamMatchEntry.COLUMN_NAME_TOWER_SCALED + " INT" +
-                ")"
+            TeamMatchEntry.COLUMN_NAME_TOWER_CHALLENGED + TYPE_INT +
+            TeamMatchEntry.COLUMN_NAME_TOWER_SCALED + " INT" +
+            ")"
         );
     }
 
@@ -66,9 +67,24 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public String[] returnDataToSync() {
+        SQLiteDatabase db  = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+        String[] output = new String[]{};
+        for (int row = 0; row < cursor.getCount(); row++) {
+            String rowString = "";
+            for (String column : cursor.getColumnNames()) {
+                cursor.getColumnIndex(g)
+
+            }
+        }
+    }
+
     public boolean insertData (DataContainer data) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
+        contentValues.put(TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER, data.getmTeamId());
 
         contentValues.put(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_ATTEMPTED, data.getAutoLowGoalAttempted());
         contentValues.put(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_SCORED, data.getAutoLowGoalScored());
@@ -98,6 +114,5 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         Log.d("DTB", "Wrote the following to db: " + data.toString());
         return isSuccessful;
-
     }
 }
