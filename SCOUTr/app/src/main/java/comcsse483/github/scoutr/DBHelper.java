@@ -2,6 +2,7 @@ package comcsse483.github.scoutr;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -12,6 +13,7 @@ import comcsse483.github.scoutr.DatabaseContract.MatchListEntry;
 import comcsse483.github.scoutr.DatabaseContract.TeamMatchEntry;
 import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.Match;
+
 
 /**
  * A helper class for the database.
@@ -69,6 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         MatchListEntry.COLUMN_NAME_RED_ONE + TYPE_INT +
                         MatchListEntry.COLUMN_NAME_RED_TWO + TYPE_INT +
                         MatchListEntry.COLUMN_NAME_RED_THREE + " INT" + ")"
+
         );
     }
 
@@ -79,7 +82,22 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public String[] getDataToSync() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_DATA_CONTAINER, null, null, null, null, null, null);
+        String[] output = new String[]{};
+        for (int row = 0; row < cursor.getCount(); row++) {
+            String rowString = "";
+            for (String column : TeamMatchEntry.getListOfColumns()) {
+                rowString = rowString + cursor.getInt(cursor.getColumnIndex(column)) + " ";
+            }
+            output[row] = rowString;
+        }
+        return output;
+    }
+
     public boolean insertDataContainer(DataContainer data) {
+
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
