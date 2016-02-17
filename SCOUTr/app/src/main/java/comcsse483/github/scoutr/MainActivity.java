@@ -39,9 +39,7 @@ import comcsse483.github.scoutr.models.Tournament;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ViewDataFragment.OnFragmentInteractionListener {
     private Fragment mCurrentFragment;
-
     private Tournament mTournament;
-
     public DBHelper mDBHelper;
     public ArrayList<Match> mMatches;
 
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mDBHelper = new DBHelper(this);
-        loadPersistantData();
+        loadPersistentData();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
     }
 
-    private void loadPersistantData(){
+    private void loadPersistentData(){
         //Populate mMatches from the database
         ArrayList<Match> matchList = getMatchListFromDataBase();
         if (matchList.size() != 0) {
