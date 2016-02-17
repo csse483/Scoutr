@@ -12,11 +12,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comcsse483.github.scoutr.DBHelper;
+import comcsse483.github.scoutr.DatabaseContract;
 import comcsse483.github.scoutr.DatabaseContract.TeamMatchEntry;
 import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 import comcsse483.github.scoutr.Utils;
 import comcsse483.github.scoutr.models.DataContainer;
+import comcsse483.github.scoutr.models.Match;
 import comcsse483.github.scoutr.models.TestDataContainer;
 
 /**
@@ -24,6 +26,7 @@ import comcsse483.github.scoutr.models.TestDataContainer;
  */
 public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder> {
     private ArrayList<TestDataContainer> mItemList = new ArrayList<>();
+    private Match mMatch;
 
     public TestDBAdapter(Context context) {
         //Pull data from database and add to arrayList
@@ -33,39 +36,48 @@ public class TestDBAdapter extends RecyclerView.Adapter<TestDBAdapter.ViewHolder
         }
 
         SQLiteDatabase mDB = mDBHelper.getReadableDatabase();
-        Cursor mCursor = mDB.query(mDBHelper.TABLE_NAME_DATA_CONTAINER, null, null, null, null, null, null);
 
-        for (int i = 0; i < mCursor.getCount(); i++) {
-            mCursor.moveToPosition(i);
+        int[] teamList = new int[mMatch.getBlueTeams().length + mMatch.getRedTeams().length];
+        System.arraycopy(mMatch.getBlueTeams(), 0, teamList, 0, mMatch.getBlueTeams().length);
+        System.arraycopy(mMatch.getRedTeams(), 0, teamList, mMatch.getBlueTeams().length, mMatch.getRedTeams().length);
+
+        for (int i : teamList) {
+            Cursor mCursor = mDB.query(DBHelper.TABLE_NAME_DATA_CONTAINER, null, TeamMatchEntry.COLUMN_NAME_TEAM_NUMBER + "=" + i, null, null, null, null);
             TestDataContainer newContainer = new TestDataContainer();
-
-            //Shot percentage
-            int shotsAttempted = mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_ATTEMPTED)) +
-                    mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_ATTEMPTED)) +
-                    mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_LOW_ATTEMPTED)) +
-                    mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_HIGH_ATTEMPTED));
-
-            int shotsMade = mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_SCORED)) +
-                    mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_SCORED)) +
-                    mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_LOW_SCORED)) +
-                    mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_HIGH_SCORED));
-
-            newContainer.setShotPercetage((double) shotsAttempted / shotsMade);
-
-            //Number of Crossings
+            int shotsAttempted = 0;
+            int shotsMade = 0;
             int numCrossings = 0;
-            for (String defense : TeamMatchEntry.getListOfDefenses()) {
-                numCrossings += mCursor.getInt(mCursor.getColumnIndex(defense));
+            for (int j = 0; i < mCursor.getCount(); i++) {
+                mCursor.moveToPosition(i);
+
+                //Shot percentage
+                shotsAttempted += mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_ATTEMPTED)) +
+                        mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_ATTEMPTED)) +
+                        mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_LOW_ATTEMPTED)) +
+                        mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_HIGH_ATTEMPTED));
+
+                shotsMade += mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_HIGH_SCORED)) +
+                        mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_AUTO_LOW_SCORED)) +
+                        mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_LOW_SCORED)) +
+                        mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_HIGH_SCORED));
+
+                //Number of Crossings
+                for (String defense : TeamMatchEntry.getListOfDefenses()) {
+                    numCrossings += mCursor.getInt(mCursor.getColumnIndex(defense));
+                }
+
+                //Tower data
+                newContainer.setTowerChallenged(mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_TOWER_CHALLENGED)) == 1);
+                newContainer.setTowerScaled(mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_TOWER_SCALED)) == 1);
+
+
             }
+            newContainer.setShotPercetage((double) shotsAttempted / shotsMade);
             newContainer.setNumCrossings(numCrossings);
 
-            //Tower data
-            newContainer.setTowerChallenged(mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_TOWER_CHALLENGED)) == 1);
-            newContainer.setTowerScaled(mCursor.getInt(mCursor.getColumnIndex(TeamMatchEntry.COLUMN_NAME_TOWER_SCALED)) == 1);
-
             mItemList.add(newContainer);
+            mCursor.close();
         }
-        mCursor.close();
     }
 
     @Override
