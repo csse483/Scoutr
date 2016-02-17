@@ -50,5 +50,35 @@ public final class DatabaseContract {
                     COLUMN_NAME_CROSSED_D2
             };
         }
+
+        public static String[] getListOfColumns() {
+            return new String[] {
+
+                    COLUMN_NAME_MATCH_NUMBER,
+                    COLUMN_NAME_TEAM_NUMBER,
+
+                    COLUMN_NAME_AUTO_LOW_ATTEMPTED,
+                    COLUMN_NAME_AUTO_LOW_SCORED,
+                    COLUMN_NAME_LOW_ATTEMPTED,
+                    COLUMN_NAME_LOW_SCORED,
+
+                    COLUMN_NAME_AUTO_HIGH_ATTEMPTED,
+                    COLUMN_NAME_AUTO_HIGH_SCORED,
+                    COLUMN_NAME_HIGH_ATTEMPTED,
+                    COLUMN_NAME_HIGH_SCORED,
+
+                    COLUMN_NAME_CROSSED_A1,
+                    COLUMN_NAME_CROSSED_A2,
+                    COLUMN_NAME_CROSSED_B1,
+                    COLUMN_NAME_CROSSED_B2,
+                    COLUMN_NAME_CROSSED_C1,
+                    COLUMN_NAME_CROSSED_C2,
+                    COLUMN_NAME_CROSSED_D1,
+                    COLUMN_NAME_CROSSED_D2,
+
+                    COLUMN_NAME_TOWER_CHALLENGED,
+                    COLUMN_NAME_TOWER_SCALED
+            };
+        }
     }
 }

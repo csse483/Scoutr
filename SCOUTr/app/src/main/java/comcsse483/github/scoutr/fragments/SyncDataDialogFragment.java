@@ -3,18 +3,25 @@ package comcsse483.github.scoutr.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import comcsse483.github.scoutr.DBHelper;
+import comcsse483.github.scoutr.MainActivity;
 import comcsse483.github.scoutr.R;
 
 /**
  * A simple dialog fragment that allows users to choose which method they sync with.
  */
 public class SyncDataDialogFragment extends DialogFragment {
+
+    NfcAdapter nfcAdapter;
 
     public SyncDataDialogFragment() {
         // Required empty public constructor
@@ -37,7 +44,7 @@ public class SyncDataDialogFragment extends DialogFragment {
                         Toast.makeText(getContext(), "Syncing via bluetooth has not been implemented yet. Select another option.", Toast.LENGTH_SHORT).show();
                         break;
                     case (R.id.nfcSyncButton):
-                        //TODO: Sync over NFC
+                        nfcAdapter.setNdefPushMessage(createNdefMessage(),getActivity());
                         Toast.makeText(getContext(), "Syncing via NFC has not been implemented yet. Select another option.", Toast.LENGTH_SHORT).show();
                         break;
                     case (R.id.wifiSyncButton):
@@ -48,6 +55,19 @@ public class SyncDataDialogFragment extends DialogFragment {
             }
         });
         builder.setNegativeButton(android.R.string.cancel, null);
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(getContext());
         return builder.create();
+    }
+
+    private NdefMessage createNdefMessage() {
+        NdefRecord[] records = new NdefRecord[]{};
+        DBHelper db = ((MainActivity) getActivity()).getDBHelper();
+        String[] data = db.getDataToSync();
+        for (int i = 0; i < data.length; i++) {
+            records[i] = NdefRecord.createMime("application/comcsse483.github.scoutr", data[i].getBytes());
+        }
+        return new NdefMessage(records);
+
     }
 }
