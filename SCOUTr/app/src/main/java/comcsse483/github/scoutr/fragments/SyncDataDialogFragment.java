@@ -45,7 +45,7 @@ public class SyncDataDialogFragment extends DialogFragment {
                         break;
                     case (R.id.nfcSyncButton):
                         nfcAdapter.setNdefPushMessage(createNdefMessage(),getActivity());
-                        //Toast.makeText(getContext(), "Syncing via NFC has not been implemented yet. Select another option.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Hold this device against the back of the device to be synced with, and follow the on screen instructions ", Toast.LENGTH_SHORT).show();
                         break;
                     case (R.id.wifiSyncButton):
                         //TODO: Sync over internet

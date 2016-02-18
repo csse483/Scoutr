@@ -97,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
-        Log.d("NFC", output[1]);
+//        Log.d("NFC", output[1]);
         return output;
     }
 
