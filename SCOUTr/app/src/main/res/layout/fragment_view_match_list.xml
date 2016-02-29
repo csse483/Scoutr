@@ -1,9 +1,8 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/set_up_new_tournament_recycler_view"
+    android:id="@+id/view_match_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comcsse483.github.scoutr.fragments.SetUpNewTournamentFragment" />
+    tools:context=".fragments.ViewDataFragment">
 
-
-
+</android.support.v7.widget.RecyclerView>

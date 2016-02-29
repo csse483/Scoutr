@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/status_layout"
+    tools:context="comcsse483.github.scoutr.fragments.StatusFragment">
+
+
+    <TextView
+        android:id="@+id/tournament_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tournament_name"
+        android:textSize="35sp"
+        android:layout_above="@+id/match_number_text_view"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/match_number_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/match_number"
+        android:textSize="30sp"
+        android:layout_above="@+id/position_text_view"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/position_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/position"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/begin_record_data_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="30sp"
+        android:layout_marginBottom="113dp"
+        android:background="@color/red"
+        android:text="@string/record_data" />
+</RelativeLayout>

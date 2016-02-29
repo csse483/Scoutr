@@ -1,11 +1,56 @@
 <resources>
     <string name="app_name">SCOUTr</string>
+    <string name="app_description">By Marc Schmitt and Rahul Yarlagadda</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="set_up_new_tournament">Set Up New Tournament</string>
     <string name="record_data">Record Data</string>
     <string name="view_data">View Data</string>
     <string name="sync_data">Sync Data</string>
-    <string name="title_activity_set_up_new_tournament">SetUpNewTournament</string>
+    <string name="status">Status</string>
+
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+
+    <array name="team_array">
+        <item>Blue 1</item>
+        <item>Blue 2</item>
+        <item>Blue 3</item>
+        <item>Red 1</item>
+        <item>Red 2</item>
+        <item>Red 3</item>
+    </array>
+
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_team_fragment_title">Select a team</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="NFC">NFC</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="wifi">Wifi</string>
+    <string name="sync_dialog_title">Pick a communication method.</string>
+
+
+    <!-- Record Data Text -->
+    <string name="field_one">Field One</string>
+    <string name="field_two">Field Two</string>
+    <string name="field_three">Field Three</string>
+    <string name="field_four">Field Four</string>
+    <string name="record_data_button">Record Data</string>
+    <string name="begin_record_data_button">Begin Recording Data</string>
+
+    <!-- Set Up New Tournament Messages -->
+    <string name="no_available_tournament">No available tournament</string>
+    <string name="select_new_tournament">Select a new tournament to record data</string>
+    <string name="select_tournament">Please select a tournament to record data</string>
+
+
+    <!-- Place Holders -->
+    <string name="tournament_name">Tournament Name</string>
+    <string name="match_number">Next Match: %d</string>
+    <string name="position">Position: %s</string>
+    <string name="test_data">Test Data</string>
 
 </resources>
