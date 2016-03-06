@@ -2,22 +2,20 @@ package comcsse483.github.scoutr.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import comcsse483.github.scoutr.Constants;
 import comcsse483.github.scoutr.R;
-import comcsse483.github.scoutr.Utils;
 import comcsse483.github.scoutr.models.DataContainer;
 import comcsse483.github.scoutr.models.DataEntry;
 
@@ -44,7 +42,7 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
         //Takes all of the values in the data entry containers and writes them to the data container
         for (int i = 0; i < mItemList.size(); i++) {
             DataEntry dataEntry = mItemList.get(i);
-            if(!dataEntry.getName().equals(Constants.DATA_NAMES[0]) || !dataEntry.getName().equals(Constants.DATA_NAMES[1])){
+            if (!dataEntry.getName().equals(Constants.DATA_NAMES[0]) || !dataEntry.getName().equals(Constants.DATA_NAMES[1])) {
                 localDataContainer.setData(dataEntry.getName(), dataEntry.getData());
             }
         }
@@ -80,10 +78,9 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
                 mItemList.add(new DataEntry(Constants.DATA_NAMES[pos], Boolean.class));
             }
 
-            if (pos == 0){
+            if (pos == 0) {
                 mItemList.get(0).setData(mTeamNumber);
-            }
-            else if (pos == 1) {
+            } else if (pos == 1) {
                 mItemList.get(1).setData(mMatchNumber);
             }
         }
@@ -92,18 +89,53 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
 
     /*-----------------------------------------ViewHolder-----------------------------------------*/
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements TextWatcher, CompoundButton.OnCheckedChangeListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
         TextView dataEntryTextView;
-        EditText dataEntryEditText;
+        //New
+        ImageButton dataEntrySubtractButton;
+        ImageButton dataEntryAddButton;
+        TextView dataEntryValueTextView;
+
         CheckBox dataEntryCheckBox;
         DataEntry mDataEntry;
+
+//        TableRow dataEntryButtonRow;
+//        TableRow dataEntryCheckBoxRow;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+
             dataEntryTextView = (TextView) itemView.findViewById(R.id.data_entry_text_view);
-            dataEntryEditText = (EditText) itemView.findViewById(R.id.data_entry_edit_text);
-            dataEntryEditText.addTextChangedListener(this);
+//
+//            dataEntryCheckBoxRow = (TableRow) itemView.findViewById(R.id.data_entry_check_box_row);
+//            dataEntryButtonRow = (TableRow) itemView.findViewById(R.id.data_entry_button_row);
+
+            //Integer
+            dataEntryValueTextView = (TextView) itemView.findViewById(R.id.data_entry_value_text_view);
+            dataEntryAddButton = (ImageButton) itemView.findViewById(R.id.data_entry_add_button);
+            dataEntrySubtractButton = (ImageButton) itemView.findViewById(R.id.data_entry_subtract_button);
+            //TODO: Create button listeners for add and subtract buttons
+
+            //Listener
+            dataEntryAddButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDataEntry.setData((int) mDataEntry.getData() + 1);
+                    dataEntryValueTextView.setText(String.valueOf(mDataEntry.getData()));
+                }
+            });
+            dataEntrySubtractButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if((int) mDataEntry.getData() > 0){
+                        mDataEntry.setData((int) mDataEntry.getData() - 1);
+                        dataEntryValueTextView.setText(String.valueOf(mDataEntry.getData()));
+                    }
+                }
+            });
+
+            //Boolean
             dataEntryCheckBox = (CheckBox) itemView.findViewById(R.id.data_entry_check_box);
             dataEntryCheckBox.setOnCheckedChangeListener(this);
         }
@@ -113,13 +145,26 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
 
             // Change dataEntry layout according to type of data in the container
             if (mDataEntry.getType().equals(Integer.class)) {
-                dataEntryEditText.setVisibility(View.VISIBLE);
+                // Integer Input
+//                dataEntryButtonRow.setVisibility(View.VISIBLE);
+//                dataEntryCheckBoxRow.setVisibility(View.GONE);
+                dataEntryAddButton.setVisibility(View.VISIBLE);
+                dataEntrySubtractButton.setVisibility(View.VISIBLE);
+                dataEntryValueTextView.setVisibility(View.VISIBLE);
+
                 dataEntryCheckBox.setVisibility(View.GONE);
 
-                dataEntryEditText.setText(String.valueOf(dataEntry.getData()));
+                dataEntryValueTextView.setText(String.valueOf(dataEntry.getData()));
 
             } else if (mDataEntry.getType().equals(Boolean.class)) {
-                dataEntryEditText.setVisibility(View.GONE);
+                // Boolean Input
+//                dataEntryButtonRow.setVisibility(View.GONE);
+//                dataEntryCheckBoxRow.setVisibility(View.VISIBLE);
+
+                dataEntryAddButton.setVisibility(View.GONE);
+                dataEntrySubtractButton.setVisibility(View.GONE);
+                dataEntryValueTextView.setVisibility(View.GONE);
+
                 dataEntryCheckBox.setVisibility(View.VISIBLE);
 
                 dataEntryCheckBox.setChecked((Boolean) dataEntry.getData());
@@ -129,26 +174,11 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.Vi
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
-            if (Utils.isNumber(editable.toString())) {
-                mDataEntry.setData(Integer.parseInt(editable.toString()));
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            //Don't Care
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            //Don't Care
-        }
-
-
-        @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
             mDataEntry.setData(isChecked);
         }
+
     }
+
+
 }

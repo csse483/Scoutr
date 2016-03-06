@@ -52,5 +52,8 @@
     <string name="match_number">Next Match: %d</string>
     <string name="position">Position: %s</string>
     <string name="test_data">Test Data</string>
+    <string name="place_holder">Place Holder</string>
+    <string name="subtract_button_description">subtract button</string>
+    <string name="add_button_description">add button</string>
 
 </resources>
