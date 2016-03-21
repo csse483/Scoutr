@@ -48,8 +48,7 @@ public class RecordDataFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMatchNumber = getArguments().getInt(Constants.MATCH_NUMBER);
-        }
+         }
 
         //Set tournament
         MainActivity mainActivity = (MainActivity) getActivity();
